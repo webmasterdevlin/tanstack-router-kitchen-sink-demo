@@ -14,7 +14,7 @@ export function Spinner({
           : 'duration-500 opacity-0 delay-0'
       }`}
     >
-      ⍥
+      ⭐️
     </div>
   )
 }
