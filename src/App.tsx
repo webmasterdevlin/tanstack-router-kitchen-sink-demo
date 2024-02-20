@@ -15,7 +15,7 @@ const router = createRouter({
   context: {
     auth: undefined!, // We'll inject this when we render
   },
-  defaultPreload: 'intent',
+  defaultPreload: 'intent', // Preloading by "intent" works by using hover and touch start events on <Link> components to preload the dependencies for the destination route.
 });
 
 declare module '@tanstack/react-router' {
