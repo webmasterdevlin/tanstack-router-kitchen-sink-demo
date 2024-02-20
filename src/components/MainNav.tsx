@@ -9,6 +9,7 @@ function MainNav() {
                 <div key={to}>
                   <Link
                     to={to}
+                    key={to}
                     activeOptions={
                       {
                         // If the route points to the root of it's parent,

@@ -8,6 +8,7 @@ import { Auth } from "../utils/auth";
 import { Spinner } from "../components/Spinner";
 import MainNav from "../components/MainNav";
 
+/* Show a global spinner when the router is transitioning */
 function RouterSpinner() {
   const isLoading = useRouterState({ select: (s) => s.status === "pending" });
   return <Spinner show={isLoading} />;
@@ -25,7 +26,6 @@ function RootComponent() {
       <div className={`min-h-screen flex flex-col`}>
         <div className={`flex items-center border-b gap-2`}>
           <h1 className={`text-3xl p-2`}>Kitchen Sink</h1>
-          {/* Show a global spinner when the router is transitioning */}
           <div className={`text-3xl`}>
             <RouterSpinner />
           </div>

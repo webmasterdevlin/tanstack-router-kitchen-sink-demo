@@ -25,7 +25,6 @@ function LoginComponent() {
     router.invalidate();
   };
 
-  // Ah, the subtle nuances of client side auth. 🙄
   useLayoutEffect(() => {
     if (status === "loggedIn" && search.redirect) {
       router.history.push(search.redirect);
