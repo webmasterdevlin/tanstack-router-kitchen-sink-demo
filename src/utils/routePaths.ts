@@ -1,9 +1,9 @@
 export const root = [
   ['/', 'home'],
   ['/dashboard', 'dashboard'],
-  ['/expensive', 'expensive lazy'],
+  ['/expensive', 'expensive (lazy)'],
   ['/layout-a', 'layout a'],
-  ['/layout-b', 'layout b lazy'],
+  ['/layout-b', 'layout b'],
   ['/profile', 'profile'],
   ['/login', 'login'],
 ] as const;

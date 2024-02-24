@@ -18,10 +18,10 @@ import { Route as DashboardImport } from './routes/dashboard'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as ExpensiveIndexImport } from './routes/expensive/index'
 import { Route as DashboardIndexImport } from './routes/dashboard.index'
 import { Route as DashboardUsersImport } from './routes/dashboard.users'
 import { Route as DashboardInvoicesImport } from './routes/dashboard.invoices'
+import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b'
 import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a'
 import { Route as AuthProfileImport } from './routes/_auth.profile'
 import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.index'
@@ -31,7 +31,7 @@ import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.in
 
 // Create Virtual Routes
 
-const LayoutLayoutBLazyImport = createFileRoute('/_layout/layout-b')()
+const ExpensiveIndexLazyImport = createFileRoute('/expensive/')()
 
 // Create/Update Routes
 
@@ -60,22 +60,17 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ExpensiveIndexRoute = ExpensiveIndexImport.update({
+const ExpensiveIndexLazyRoute = ExpensiveIndexLazyImport.update({
   path: '/expensive/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/expensive/index.lazy').then((d) => d.Route),
+)
 
 const DashboardIndexRoute = DashboardIndexImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
-
-const LayoutLayoutBLazyRoute = LayoutLayoutBLazyImport.update({
-  path: '/layout-b',
-  getParentRoute: () => LayoutRoute,
-} as any).lazy(() =>
-  import('./routes/_layout.layout-b.lazy').then((d) => d.Route),
-)
 
 const DashboardUsersRoute = DashboardUsersImport.update({
   path: '/users',
@@ -85,6 +80,11 @@ const DashboardUsersRoute = DashboardUsersImport.update({
 const DashboardInvoicesRoute = DashboardInvoicesImport.update({
   path: '/invoices',
   getParentRoute: () => DashboardRoute,
+} as any)
+
+const LayoutLayoutBRoute = LayoutLayoutBImport.update({
+  path: '/layout-b',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutLayoutARoute = LayoutLayoutAImport.update({
@@ -151,6 +151,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLayoutAImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/layout-b': {
+      preLoaderRoute: typeof LayoutLayoutBImport
+      parentRoute: typeof LayoutImport
+    }
     '/dashboard/invoices': {
       preLoaderRoute: typeof DashboardInvoicesImport
       parentRoute: typeof DashboardImport
@@ -159,16 +163,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUsersImport
       parentRoute: typeof DashboardImport
     }
-    '/_layout/layout-b': {
-      preLoaderRoute: typeof LayoutLayoutBLazyImport
-      parentRoute: typeof LayoutImport
-    }
     '/dashboard/': {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof DashboardImport
     }
     '/expensive/': {
-      preLoaderRoute: typeof ExpensiveIndexImport
+      preLoaderRoute: typeof ExpensiveIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/dashboard/invoices/$invoiceId': {
@@ -195,7 +195,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthRoute.addChildren([AuthProfileRoute]),
-  LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBLazyRoute]),
+  LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
   DashboardRoute.addChildren([
     DashboardInvoicesRoute.addChildren([
       DashboardInvoicesInvoiceIdRoute,
@@ -208,7 +208,7 @@ export const routeTree = rootRoute.addChildren([
     DashboardIndexRoute,
   ]),
   LoginRoute,
-  ExpensiveIndexRoute,
+  ExpensiveIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */
