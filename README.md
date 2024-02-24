@@ -1,6 +1,6 @@
-# Tanstack Router Kitchen Sink Demo
+# Forked Tanstack Router Kitchen Sink Demo
 
 To run this example:
 
-- `pnpm install` or `yarn`
-- `pnpm start` or `yarn start`
+- `bun install` or `pnpm`
+- `bun run dev` or `pnpm start`
