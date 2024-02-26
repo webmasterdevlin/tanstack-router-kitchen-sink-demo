@@ -1,21 +1,26 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
-import { auth } from './utils/auth';
+import { StrictMode } from 'react';
 import { Spinner } from './components/Spinner';
 import { routeTree } from './routeTree.gen';
-import { StrictMode } from 'react';
+import { auth } from './utils/auth';
 
 const router = createRouter({
-  routeTree,
-  defaultPendingComponent: () => (
-    <div className={`p-2 text-2xl`}>
-      <Spinner />
-    </div>
-  ),
-  defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
     auth: undefined!, // We'll inject this when we render
   },
-  defaultPreload: 'intent', // Preloading by "intent" works by using hover and touch start events on <Link> components to preload the dependencies for the destination route.
+  defaultErrorComponent: ({ error }) => {
+    return <ErrorComponent error={error} />;
+  },
+  defaultPendingComponent: () => {
+    return (
+      <div className={'p-2 text-2xl'}>
+        <Spinner />
+      </div>
+    );
+  },
+  defaultPreload: 'intent',
+  routeTree, // Preloading by "intent" works by using hover and touch start events on <Link> components to preload the dependencies for the destination route.
 });
 
 declare module '@tanstack/react-router' {
@@ -24,15 +29,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <StrictMode>
-      <RouterProvider
-        router={router}
-        context={{
-          auth,
-        }}
-      />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider
+          router={router}
+          context={{
+            auth,
+          }}
+        />
+      </QueryClientProvider>
     </StrictMode>
   );
 }

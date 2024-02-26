@@ -1,61 +1,61 @@
+import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
+import React, { useState, useEffect } from 'react';
+import { z } from 'zod';
+import { Spinner } from '../components/Spinner';
+import { fetchUsers } from '../utils/mockTodos';
 
-import {
-  createFileRoute,
-  Link,
-  MatchRoute,
-  Outlet,
-  useNavigate,
-} from "@tanstack/react-router";
-import { fetchUsers } from "../utils/mockTodos";
-import { Spinner } from "../components/Spinner";
-import { z } from "zod";
-import React, { useState, useEffect } from "react";
+type UsersViewSortBy = 'name' | 'id' | 'email';
 
-type UsersViewSortBy = "name" | "id" | "email";
-
-export const Route = createFileRoute("/dashboard/users")({
-  validateSearch: z.object({
-    usersView: z
-      .object({
-        sortBy: z.enum(["name", "id", "email"]).optional(),
-        filterBy: z.string().optional(),
-      })
-      .optional(),
-  }).parse,
+export const Route = createFileRoute('/dashboard/users')({
+  component: UsersComponent,
+  loader: ({ deps }) => {
+    return fetchUsers(deps);
+  },
+  loaderDeps: ({ search }) => {
+    return {
+      filterBy: search.usersView?.filterBy,
+      sortBy: search.usersView?.sortBy,
+    };
+  },
   preSearchFilters: [
     // Persist (or set as default) the usersView search param
     // while navigating within or to this route (or it's children!)
-    (search) => ({
-      ...search,
-      usersView: {
-        ...search.usersView,
-      },
-    }),
+    search => {
+      return {
+        ...search,
+        usersView: {
+          ...search.usersView,
+        },
+      };
+    },
   ],
-  loaderDeps: ({ search }) => ({
-    filterBy: search.usersView?.filterBy,
-    sortBy: search.usersView?.sortBy,
-  }),
-  loader: ({ deps }) => fetchUsers(deps),
-  component: UsersComponent,
+  validateSearch: z.object({
+    usersView: z
+      .object({
+        filterBy: z.string().optional(),
+        sortBy: z.enum(['name', 'id', 'email']).optional(),
+      })
+      .optional(),
+  }).parse,
 });
 
 function UsersComponent() {
   const navigate = useNavigate({ from: Route.fullPath });
   const { usersView } = Route.useSearch();
   const users = Route.useLoaderData();
-  const sortBy = usersView?.sortBy ?? "name";
+  const sortBy = usersView?.sortBy ?? 'name';
   const filterBy = usersView?.filterBy;
 
-  const [filterDraft, setFilterDraft] = useState(filterBy ?? "");
+  const [filterDraft, setFilterDraft] = useState(filterBy ?? '');
 
   useEffect(() => {
-    setFilterDraft(filterBy ?? "");
+    setFilterDraft(filterBy ?? '');
   }, [filterBy]);
 
-  const setSortBy = (sortBy: UsersViewSortBy) =>
-    navigate({
-      search: (old) => {
+  const setSortBy = (sortBy: UsersViewSortBy) => {
+    return navigate({
+      replace: true,
+      search: old => {
         return {
           ...old,
           usersView: {
@@ -64,12 +64,13 @@ function UsersComponent() {
           },
         };
       },
-      replace: true,
     });
+  };
 
   React.useEffect(() => {
     navigate({
-      search: (old) => {
+      replace: true,
+      search: old => {
         return {
           ...old,
           usersView: {
@@ -78,57 +79,70 @@ function UsersComponent() {
           },
         };
       },
-      replace: true,
     });
   }, [filterDraft]);
 
   return (
-    <div className="flex-1 flex">
+    <div className="flex flex-1">
       <div className="divide-y">
-        <div className="py-2 px-3 flex gap-2 items-center bg-gray-100">
+        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2">
           <div>Sort By:</div>
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as UsersViewSortBy)}
-            className="flex-1 border p-1 px-2 rounded"
+            onChange={e => {
+              return setSortBy(e.target.value as UsersViewSortBy);
+            }}
+            className="flex-1 rounded border p-1 px-2"
           >
-            {["name", "id", "email"].map((d) => {
-              return <option key={d} value={d} children={d} />;
+            {['name', 'id', 'email'].map(d => {
+              return (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              );
             })}
           </select>
         </div>
-        <div className="py-2 px-3 flex gap-2 items-center bg-gray-100">
+        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2">
           <div>Filter By:</div>
           <input
             value={filterDraft}
-            onChange={(e) => setFilterDraft(e.target.value)}
+            onChange={e => {
+              return setFilterDraft(e.target.value);
+            }}
             placeholder="Search Names..."
-            className="min-w-0 flex-1 border p-1 px-2 rounded"
+            className="min-w-0 flex-1 rounded border p-1 px-2"
           />
         </div>
-        {users?.map((user) => {
+        {users?.map(user => {
           return (
             <div key={user.id}>
               <Link
                 to="/dashboard/users/user"
-                search={(d) => ({
-                  ...d,
-                  userId: user.id,
-                })}
-                className="block py-2 px-3 text-blue-700"
-                activeProps={{ className: `font-bold` }}
+                search={d => {
+                  return {
+                    ...d,
+                    userId: user.id,
+                  };
+                }}
+                className="block px-3 py-2 text-blue-700"
+                activeProps={{ className: 'font-bold' }}
               >
                 <pre className="text-sm">
-                  {user.name}{" "}
+                  {user.name}{' '}
                   <MatchRoute
                     to="/dashboard/users/user"
-                    search={(d) => ({
-                      ...d,
-                      userId: user.id,
-                    })}
+                    search={d => {
+                      return {
+                        ...d,
+                        userId: user.id,
+                      };
+                    }}
                     pending
                   >
-                    {(match) => <Spinner show={!!match} wait="delay-50" />}
+                    {match => {
+                      return <Spinner show={!!match} wait="delay-50" />;
+                    }}
                   </MatchRoute>
                 </pre>
               </Link>

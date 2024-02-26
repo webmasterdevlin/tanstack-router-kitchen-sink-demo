@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect } from 'react';
 
 export function useSessionStorage<T>(key: string, initialValue: T) {
   const state = useState<T>(() => {

@@ -5,5 +5,5 @@ export const Route = createFileRoute('/_layout/layout-b')({
 });
 
 function LayoutBComponent() {
-  return <div>I'm B!</div>;
+  return <div>I am B!</div>;
 }

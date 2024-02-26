@@ -1,9 +1,8 @@
+import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { useLayoutEffect, useState } from 'react';
+import { z } from 'zod';
 
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useLayoutEffect, useState } from "react";
-import { z } from "zod";
-
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute('/login')({
   validateSearch: z.object({
     redirect: z.string().optional(),
   }),
@@ -14,10 +13,12 @@ export const Route = createFileRoute("/login")({
 function LoginComponent() {
   const router = useRouter();
   const { auth, status } = Route.useRouteContext({
-    select: ({ auth }: any) => ({ auth, status: auth.status }),
+    select: ({ auth }: any) => {
+      return { auth, status: auth.status };
+    },
   });
   const search = Route.useSearch();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,12 +27,12 @@ function LoginComponent() {
   };
 
   useLayoutEffect(() => {
-    if (status === "loggedIn" && search.redirect) {
+    if (status === 'loggedIn' && search.redirect) {
       router.history.push(search.redirect);
     }
   }, [status, search.redirect]);
 
-  return status === "loggedIn" ? (
+  return status === 'loggedIn' ? (
     <div>
       Logged in as <strong>{auth.username}</strong>
       <div className="h-2" />
@@ -40,7 +41,7 @@ function LoginComponent() {
           auth.logout();
           router.invalidate();
         }}
-        className="text-sm bg-blue-500 text-white border inline-block py-1 px-2 rounded"
+        className="inline-block rounded border bg-blue-500 px-2 py-1 text-sm text-white"
       >
         Log out
       </button>
@@ -53,14 +54,13 @@ function LoginComponent() {
       <form onSubmit={onSubmit} className="flex gap-2">
         <input
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={e => {
+            return setUsername(e.target.value);
+          }}
           placeholder="Username"
-          className="border p-1 px-2 rounded"
+          className="rounded border p-1 px-2"
         />
-        <button
-          type="submit"
-          className="text-sm bg-blue-500 text-white border inline-block py-1 px-2 rounded"
-        >
+        <button type="submit" className="inline-block rounded border bg-blue-500 px-2 py-1 text-sm text-white">
           Login
         </button>
       </form>

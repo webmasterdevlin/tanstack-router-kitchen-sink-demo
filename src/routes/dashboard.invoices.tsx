@@ -1,38 +1,34 @@
+import { createFileRoute, Link, MatchRoute, Outlet } from '@tanstack/react-router';
+import { Spinner } from '../components/Spinner';
+import { fetchInvoices } from '../utils/mockTodos';
 
-import {
-  createFileRoute,
-  Link,
-  MatchRoute,
-  Outlet,
-} from "@tanstack/react-router";
-import { fetchInvoices } from "../utils/mockTodos";
-import { Spinner } from "../components/Spinner";
-
-export const Route = createFileRoute("/dashboard/invoices")({
-  loader: () => fetchInvoices(),
+export const Route = createFileRoute('/dashboard/invoices')({
   component: InvoicesComponent,
+  loader: () => {
+    return fetchInvoices();
+  },
 });
 
 function InvoicesComponent() {
   const invoices = Route.useLoaderData();
 
   return (
-    <div className="flex-1 flex">
-      <div className="divide-y w-48">
-        {invoices?.map((invoice) => {
+    <div className="flex flex-1">
+      <div className="w-48 divide-y">
+        {invoices?.map(invoice => {
           return (
             <div key={invoice.id}>
               <Link
                 to="/dashboard/invoices/$invoiceId"
                 params={{
-                  invoiceId: invoice.id,
+                  invoiceId: invoice.id.toString(),
                 }}
                 preload="intent"
-                className="block py-2 px-3 text-blue-700"
-                activeProps={{ className: `font-bold` }}
+                className="block px-3 py-2 text-blue-700"
+                activeProps={{ className: 'font-bold' }}
               >
                 <pre className="text-sm">
-                  #{invoice.id} - {invoice.title.slice(0, 10)}{" "}
+                  #{invoice.id} - {invoice.title.slice(0, 10)}{' '}
                   <MatchRoute
                     to="/dashboard/invoices/$invoiceId"
                     params={{
@@ -40,7 +36,9 @@ function InvoicesComponent() {
                     }}
                     pending
                   >
-                    {(match) => <Spinner show={!!match} wait="delay-50" />}
+                    {match => {
+                      return <Spinner show={!!match} wait="delay-50" />;
+                    }}
                   </MatchRoute>
                 </pre>
               </Link>

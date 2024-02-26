@@ -1,34 +1,27 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { InvoiceFields } from '../components/InvoiceFields';
+import { Spinner } from '../components/Spinner';
+import useCreateInvoice from '../hooks/useCreateInvoice';
+import type { Invoice } from '../utils/mockTodos';
 
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useMutation } from "../hooks/useMutation";
-import { Invoice, postInvoice } from "../utils/mockTodos";
-import { InvoiceFields } from "../components/InvoiceFields";
-import { Spinner } from "../components/Spinner";
-
-// @ts-ignore
-export const Route = createFileRoute("/dashboard/invoices/")({
+export const Route = createFileRoute('/dashboard/invoices/')({
   component: InvoicesIndexComponent,
 });
 
 function InvoicesIndexComponent() {
-  const router = useRouter();
-
-  const createInvoiceMutation = useMutation({
-    fn: postInvoice,
-    onSuccess: () => router.invalidate(),
-  });
+  const { mutateAsync: createInvoiceMutation, status } = useCreateInvoice();
 
   return (
     <>
       <div className="p-2">
         <form
-          onSubmit={(event) => {
+          onSubmit={event => {
             event.preventDefault();
             event.stopPropagation();
             const formData = new FormData(event.target as HTMLFormElement);
-            createInvoiceMutation.mutate({
-              title: formData.get("title") as string,
-              body: formData.get("body") as string,
+            createInvoiceMutation({
+              body: formData.get('body') as string,
+              title: formData.get('title') as string,
             });
           }}
           className="space-y-2"
@@ -37,24 +30,24 @@ function InvoicesIndexComponent() {
           <InvoiceFields invoice={{} as Invoice} />
           <div>
             <button
-              className="bg-blue-500 rounded p-2 uppercase text-white font-black disabled:opacity-50"
-              disabled={createInvoiceMutation?.status === "pending"}
+              className="rounded bg-blue-500 p-2 font-black uppercase text-white disabled:opacity-50"
+              disabled={status === 'pending'}
             >
-              {createInvoiceMutation?.status === "pending" ? (
+              {status === 'pending' ? (
                 <>
                   Creating <Spinner />
                 </>
               ) : (
-                "Create"
+                'Create'
               )}
             </button>
           </div>
-          {createInvoiceMutation?.status === "success" ? (
-            <div className="inline-block px-2 py-1 rounded bg-green-500 text-white animate-bounce [animation-iteration-count:2.5] [animation-duration:.3s]">
+          {status === 'success' ? (
+            <div className="inline-block animate-bounce rounded bg-green-500 px-2 py-1 text-white [animation-duration:.3s] [animation-iteration-count:2.5]">
               Created!
             </div>
-          ) : createInvoiceMutation?.status === "error" ? (
-            <div className="inline-block px-2 py-1 rounded bg-red-500 text-white animate-bounce [animation-iteration-count:2.5] [animation-duration:.3s]">
+          ) : status === 'error' ? (
+            <div className="inline-block animate-bounce rounded bg-red-500 px-2 py-1 text-white [animation-duration:.3s] [animation-iteration-count:2.5]">
               Failed to create.
             </div>
           ) : null}

@@ -1,10 +1,11 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { fetchInvoices } from '../utils/mockTodos';
 
-import { createFileRoute } from "@tanstack/react-router";
-import { fetchInvoices } from "../utils/mockTodos";
-
-export const Route = createFileRoute("/dashboard/")({
-  loader: () => fetchInvoices(),
+export const Route = createFileRoute('/dashboard/')({
   component: DashboardIndexComponent,
+  loader: () => {
+    return fetchInvoices();
+  },
 });
 
 function DashboardIndexComponent() {
@@ -13,8 +14,7 @@ function DashboardIndexComponent() {
   return (
     <div className="p-2">
       <div className="p-2">
-        Welcome to the dashboard! You have{" "}
-        <strong>{invoices.length} total invoices</strong>.
+        Welcome to the dashboard! You have <strong>{invoices.length} total invoices</strong>.
       </div>
     </div>
   );

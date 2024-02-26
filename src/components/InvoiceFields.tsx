@@ -1,21 +1,14 @@
+import type { Invoice } from '../utils/mockTodos';
 
-import { Invoice } from "../utils/mockTodos";
-
-export function InvoiceFields({
-  invoice,
-  disabled,
-}: {
-  invoice: Invoice;
-  disabled?: boolean;
-}) {
+export function InvoiceFields({ invoice, disabled }: { invoice: Invoice; disabled?: boolean }) {
   return (
     <div className="space-y-2">
-      <h2 className="font-bold text-lg">
+      <h2 className="text-lg font-bold">
         <input
           name="title"
           defaultValue={invoice?.title}
           placeholder="Invoice Title"
-          className="border border-opacity-50 rounded p-2 w-full"
+          className="w-full rounded border border-opacity-50 p-2"
           disabled={disabled}
         />
       </h2>
@@ -25,7 +18,7 @@ export function InvoiceFields({
           defaultValue={invoice?.body}
           rows={6}
           placeholder="Invoice Body..."
-          className="border border-opacity-50 p-2 rounded w-full"
+          className="w-full rounded border border-opacity-50 p-2"
           disabled={disabled}
         />
       </div>

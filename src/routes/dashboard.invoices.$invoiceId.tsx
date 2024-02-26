@@ -1,24 +1,31 @@
-import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
-import { z } from 'zod';
-import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
-import { useMutation } from '../hooks/useMutation';
-import { InvoiceFields } from '../components/InvoiceFields';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
+import { z } from 'zod';
+import { InvoiceFields } from '../components/InvoiceFields';
+import useUpdateInvoice from '../hooks/useUpdateInvoice';
+import { fetchInvoiceById } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
-  parseParams: params => ({
-    invoiceId: z.number().int().parse(Number(params.invoiceId)),
-  }),
-  stringifyParams: ({ invoiceId }) => ({ invoiceId: `${invoiceId}` }),
-  validateSearch: search =>
-    z
-      .object({
-        showNotes: z.boolean().optional(),
-        notes: z.string().optional(),
-      })
-      .parse(search),
-  loader: ({ params: { invoiceId } }) => fetchInvoiceById(invoiceId),
   component: InvoiceComponent,
+  loader: ({ params: { invoiceId } }) => {
+    return fetchInvoiceById(invoiceId);
+  },
+  parseParams: params => {
+    return {
+      invoiceId: z.number().int().parse(Number(params.invoiceId)),
+    };
+  },
+  stringifyParams: ({ invoiceId }) => {
+    return { invoiceId: `${invoiceId}` };
+  },
+  validateSearch: search => {
+    return z
+      .object({
+        notes: z.string().optional(),
+        showNotes: z.boolean().optional(),
+      })
+      .parse(search);
+  },
 });
 
 function InvoiceComponent() {
@@ -26,23 +33,21 @@ function InvoiceComponent() {
   const invoice = Route.useLoaderData();
 
   const navigate = useNavigate({ from: Route.fullPath });
-  const router = useRouter();
 
-  const updateInvoiceMutation = useMutation({
-    fn: patchInvoice,
-    onSuccess: () => router.invalidate(),
-  });
+  const { mutateAsync: updateInvoiceMutation, status, variables, submittedAt } = useUpdateInvoice();
 
   const [notes, setNotes] = useState(search.notes ?? '');
 
   useEffect(() => {
     navigate({
-      search: old => ({
-        ...old,
-        notes: notes ? notes : undefined,
-      }),
-      replace: true,
       params: true,
+      replace: true,
+      search: old => {
+        return {
+          ...old,
+          notes: notes ? notes : undefined,
+        };
+      },
     });
   }, [notes]);
 
@@ -53,22 +58,24 @@ function InvoiceComponent() {
         event.preventDefault();
         event.stopPropagation();
         const formData = new FormData(event.target as HTMLFormElement);
-        updateInvoiceMutation.mutate({
+        updateInvoiceMutation({
+          body: formData.get('body') as string,
           id: invoice.id,
           title: formData.get('title') as string,
-          body: formData.get('body') as string,
         });
       }}
       className="space-y-2 p-2"
     >
-      <InvoiceFields invoice={invoice} disabled={updateInvoiceMutation?.status === 'pending'} />
+      <InvoiceFields invoice={invoice} disabled={status === 'pending'} />
       <div>
         <Link
           from={Route.fullPath}
-          search={old => ({
-            ...old,
-            showNotes: old?.showNotes ? undefined : true,
-          })}
+          search={old => {
+            return {
+              ...old,
+              showNotes: old?.showNotes ? undefined : true,
+            };
+          }}
           className="text-blue-700"
           params={true}
         >
@@ -95,18 +102,18 @@ function InvoiceComponent() {
       <div>
         <button
           className="rounded bg-blue-500 p-2 font-black uppercase text-white disabled:opacity-50"
-          disabled={updateInvoiceMutation?.status === 'pending'}
+          disabled={status === 'pending'}
         >
           Save
         </button>
       </div>
-      {updateInvoiceMutation?.variables?.id === invoice.id ? (
-        <div key={updateInvoiceMutation?.submittedAt}>
-          {updateInvoiceMutation?.status === 'success' ? (
+      {variables?.id === invoice.id ? (
+        <div key={submittedAt}>
+          {status === 'success' ? (
             <div className="inline-block animate-bounce rounded bg-green-500 px-2 py-1 text-white [animation-duration:.3s] [animation-iteration-count:2.5]">
               Saved!
             </div>
-          ) : updateInvoiceMutation?.status === 'error' ? (
+          ) : status === 'error' ? (
             <div className="inline-block animate-bounce rounded bg-red-500 px-2 py-1 text-white [animation-duration:.3s] [animation-iteration-count:2.5]">
               Failed to save.
             </div>
