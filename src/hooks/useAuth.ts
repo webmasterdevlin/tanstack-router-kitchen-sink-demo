@@ -1,7 +1,8 @@
 import { useMsal } from '@azure/msal-react';
 import { useEffect } from 'react';
 import { loginRequest } from '../auth/config';
-export default function useAuth() {
+import type { Auth } from '../utils/auth';
+export default function useAuth(): Auth {
   const { instance, accounts } = useMsal();
 
   useEffect(() => {
