@@ -32,8 +32,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const queryClient = new QueryClient();
-
 function App({ msalInstance }: any) {
   return (
     <StrictMode>
@@ -42,16 +40,13 @@ function App({ msalInstance }: any) {
           <UnauthenticatedTemplate>
             <Login />
           </UnauthenticatedTemplate>
-
           <AuthenticatedTemplate>
-            <QueryClientProvider client={queryClient}>
-              <RouterProvider
-                router={router}
-                context={{
-                  auth,
-                }}
-              />
-            </QueryClientProvider>
+            <RouterProvider
+              router={router}
+              context={{
+                auth,
+              }}
+            />
           </AuthenticatedTemplate>
         </>
       </MsalProvider>
