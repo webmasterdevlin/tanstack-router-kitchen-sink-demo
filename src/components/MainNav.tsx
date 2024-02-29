@@ -34,7 +34,7 @@ function MainNav() {
         twitter
       </Link>
       <Link className={'block px-3 py-2 capitalize text-blue-700'} to="/contactus" mask={{ to: '/aboutus' }}>
-        contact us
+        contact us (masked to about us)
       </Link>
     </div>
   );
