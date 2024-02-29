@@ -1,10 +1,13 @@
 import { MsalProvider, UnauthenticatedTemplate, AuthenticatedTemplate } from '@azure/msal-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import Login from './Login';
 import { Spinner } from './components/Spinner';
 import { routeTree } from './routeTree.gen';
 import { auth } from './utils/auth';
+
+export const queryClient = new QueryClient();
 
 const router = createRouter({
   context: {
@@ -26,7 +29,7 @@ const router = createRouter({
 
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router;
+    router: typeof router; // By registering your router with the module, you can now use the exported hooks, components, and utilities with your router's exact types.
   }
 }
 
@@ -39,12 +42,14 @@ function App({ msalInstance }: any) {
             <Login />
           </UnauthenticatedTemplate>
           <AuthenticatedTemplate>
-            <RouterProvider
-              router={router}
-              context={{
-                auth,
-              }}
-            />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider
+                router={router}
+                context={{
+                  auth,
+                }}
+              />
+            </QueryClientProvider>
           </AuthenticatedTemplate>
         </>
       </MsalProvider>

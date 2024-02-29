@@ -1,6 +1,6 @@
 export const root = [
   ['/', 'home'],
-  ['/dashboard', 'dashboard'],
+  ['/dashboard', 'dashboard (preloaded)'],
   ['/expensive', 'expensive (lazy)'],
   ['/layout-a', 'layout a'],
   ['/layout-b', 'layout b'],

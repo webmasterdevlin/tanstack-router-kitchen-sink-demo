@@ -17,7 +17,6 @@ function MainNav() {
                   // exact: to === '.',
                 }
               }
-              preload="intent"
               className={'block px-3 py-2 capitalize text-blue-700'}
               // Make "active" links bold
               activeProps={{ className: 'font-bold' }}
@@ -27,6 +26,13 @@ function MainNav() {
           </div>
         );
       })}
+      <Link
+        className={'block px-3 py-2 capitalize text-blue-700'}
+        to="https://twitter.com/DevlinDuldulao"
+        target="_blank"
+      >
+        twitter
+      </Link>
     </div>
   );
 }
