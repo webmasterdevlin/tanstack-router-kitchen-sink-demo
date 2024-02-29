@@ -15,6 +15,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
+import { Route as ContactusImport } from './routes/contactus'
+import { Route as AboutusImport } from './routes/aboutus'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
@@ -42,6 +44,16 @@ const LoginRoute = LoginImport.update({
 
 const DashboardRoute = DashboardImport.update({
   path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactusRoute = ContactusImport.update({
+  path: '/contactus',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutusRoute = AboutusImport.update({
+  path: '/aboutus',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -135,6 +147,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
+    '/aboutus': {
+      preLoaderRoute: typeof AboutusImport
+      parentRoute: typeof rootRoute
+    }
+    '/contactus': {
+      preLoaderRoute: typeof ContactusImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
@@ -196,6 +216,8 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthRoute.addChildren([AuthProfileRoute]),
   LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
+  AboutusRoute,
+  ContactusRoute,
   DashboardRoute.addChildren([
     DashboardInvoicesRoute.addChildren([
       DashboardInvoicesInvoiceIdRoute,
