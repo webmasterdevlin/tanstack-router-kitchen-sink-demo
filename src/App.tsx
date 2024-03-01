@@ -31,7 +31,7 @@ const router = createRouter({
 
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router; // By registering your router with the module, you can now use the exported hooks, components, and utilities with your router's exact types.
+    router: typeof router; // merge your router's exact types with exported hooks, components, and utilities.
   }
 }
 
