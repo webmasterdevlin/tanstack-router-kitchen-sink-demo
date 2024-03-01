@@ -13,19 +13,16 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as ContactUsImport } from './routes/contact-us'
 import { Route as AboutUsImport } from './routes/about-us'
 import { Route as LayoutImport } from './routes/_layout'
-import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard.index'
 import { Route as DashboardUsersImport } from './routes/dashboard.users'
 import { Route as DashboardInvoicesImport } from './routes/dashboard.invoices'
 import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b'
 import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a'
-import { Route as AuthProfileImport } from './routes/_auth.profile'
 import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.index'
 import { Route as DashboardInvoicesIndexImport } from './routes/dashboard.invoices.index'
 import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user'
@@ -36,11 +33,6 @@ import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.in
 const ExpensiveIndexLazyImport = createFileRoute('/expensive/')()
 
 // Create/Update Routes
-
-const LoginRoute = LoginImport.update({
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const DashboardRoute = DashboardImport.update({
   path: '/dashboard',
@@ -59,11 +51,6 @@ const AboutUsRoute = AboutUsImport.update({
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -104,11 +91,6 @@ const LayoutLayoutARoute = LayoutLayoutAImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const AuthProfileRoute = AuthProfileImport.update({
-  path: '/profile',
-  getParentRoute: () => AuthRoute,
-} as any)
-
 const DashboardUsersIndexRoute = DashboardUsersIndexImport.update({
   path: '/',
   getParentRoute: () => DashboardUsersRoute,
@@ -139,10 +121,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_auth': {
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
     '/_layout': {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
@@ -158,14 +136,6 @@ declare module '@tanstack/react-router' {
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
-    }
-    '/login': {
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/profile': {
-      preLoaderRoute: typeof AuthProfileImport
-      parentRoute: typeof AuthImport
     }
     '/_layout/layout-a': {
       preLoaderRoute: typeof LayoutLayoutAImport
@@ -214,7 +184,6 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  AuthRoute.addChildren([AuthProfileRoute]),
   LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
   AboutUsRoute,
   ContactUsRoute,
@@ -229,7 +198,6 @@ export const routeTree = rootRoute.addChildren([
     ]),
     DashboardIndexRoute,
   ]),
-  LoginRoute,
   ExpensiveIndexLazyRoute,
 ])
 

@@ -4,7 +4,7 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import MainNav from '../components/MainNav';
 import { Spinner } from '../components/Spinner';
 import useAuth from '../hooks/useAuth';
-import type { Auth } from '../utils/auth';
+import type { Auth } from '../models/auth';
 import type { QueryClient } from '@tanstack/react-query';
 
 /* Show a global spinner when the router is transitioning */
@@ -24,6 +24,9 @@ type RouterContextType = {
 
 export const Route = createRootRouteWithContext<RouterContextType>()({
   component: RootComponent,
+  notFoundComponent: () => {
+    return <h1>Fancy meeting you here. Tell the developers to customize this page.</h1>;
+  },
 });
 
 function RootComponent() {
