@@ -43,7 +43,7 @@ function MainNav() {
       >
         twitter
       </Link>
-      <Link className={'block px-3 py-2 capitalize text-indigo-700'} to="/contactus" mask={{ to: '/aboutus' }}>
+      <Link className={'block px-3 py-2 capitalize text-indigo-700'} to="/contact-us" mask={{ to: '/about-us' }}>
         contact us (masked to about us)
       </Link>
       <div>

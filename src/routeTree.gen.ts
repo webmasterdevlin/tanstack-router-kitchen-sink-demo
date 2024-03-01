@@ -15,8 +15,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
-import { Route as ContactusImport } from './routes/contactus'
-import { Route as AboutusImport } from './routes/aboutus'
+import { Route as ContactUsImport } from './routes/contact-us'
+import { Route as AboutUsImport } from './routes/about-us'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
@@ -47,13 +47,13 @@ const DashboardRoute = DashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ContactusRoute = ContactusImport.update({
-  path: '/contactus',
+const ContactUsRoute = ContactUsImport.update({
+  path: '/contact-us',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AboutusRoute = AboutusImport.update({
-  path: '/aboutus',
+const AboutUsRoute = AboutUsImport.update({
+  path: '/about-us',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -147,12 +147,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
-    '/aboutus': {
-      preLoaderRoute: typeof AboutusImport
+    '/about-us': {
+      preLoaderRoute: typeof AboutUsImport
       parentRoute: typeof rootRoute
     }
-    '/contactus': {
-      preLoaderRoute: typeof ContactusImport
+    '/contact-us': {
+      preLoaderRoute: typeof ContactUsImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -216,8 +216,8 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthRoute.addChildren([AuthProfileRoute]),
   LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
-  AboutusRoute,
-  ContactusRoute,
+  AboutUsRoute,
+  ContactUsRoute,
   DashboardRoute.addChildren([
     DashboardInvoicesRoute.addChildren([
       DashboardInvoicesInvoiceIdRoute,

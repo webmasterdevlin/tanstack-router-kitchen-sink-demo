@@ -1,7 +1,7 @@
 import { Block, createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
-export const Route = createFileRoute('/contactus')({
+export const Route = createFileRoute('/contact-us')({
   component: () => {
     const [formIsDirty, setFromIsDirty] = useState(false);
     return (
@@ -11,7 +11,7 @@ export const Route = createFileRoute('/contactus')({
         }}
         condition={formIsDirty}
       >
-        <div>Hello /contactus with url masking and blocker!</div>
+        <div>Hello /contact-us with url masking and blocker!</div>
         <button
           onClick={() => {
             setFromIsDirty(prev => {
