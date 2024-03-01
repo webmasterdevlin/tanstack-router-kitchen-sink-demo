@@ -1,7 +1,17 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import DashboardNav from '../components/DashboardNav';
 
 export const Route = createFileRoute('/dashboard')({
+  beforeLoad: ({ context, location }) => {
+    if (context.auth.status !== 'loggedIn') {
+      throw redirect({
+        search: {
+          redirect: location.href,
+        },
+        to: '/',
+      });
+    }
+  },
   component: DashboardComponent,
 });
 

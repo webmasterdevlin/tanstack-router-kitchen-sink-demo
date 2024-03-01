@@ -41,7 +41,7 @@ function LoginComponent() {
           auth.logout();
           router.invalidate();
         }}
-        className="inline-block rounded border bg-blue-500 px-2 py-1 text-sm text-white"
+        className="inline-block rounded border bg-indigo-500 px-2 py-1 text-sm text-white"
       >
         Log out
       </button>
@@ -60,7 +60,7 @@ function LoginComponent() {
           placeholder="Username"
           className="rounded border p-1 px-2"
         />
-        <button type="submit" className="inline-block rounded border bg-blue-500 px-2 py-1 text-sm text-white">
+        <button type="submit" className="inline-block rounded border bg-indigo-500 px-2 py-1 text-sm text-white">
           Login
         </button>
       </form>

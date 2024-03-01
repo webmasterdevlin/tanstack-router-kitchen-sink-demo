@@ -14,7 +14,7 @@ function IndexComponent() {
         params={{
           invoiceId: 3,
         }}
-        className={'rounded-full bg-blue-500 px-2 py-1 text-xs text-white'}
+        className={'rounded-full bg-indigo-500 px-2 py-1 text-xs text-white'}
       >
         1 New Invoice
       </Link>

@@ -3,6 +3,7 @@ import { Outlet, createRootRouteWithContext, useRouterState } from '@tanstack/re
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import MainNav from '../components/MainNav';
 import { Spinner } from '../components/Spinner';
+import useAuth from '../hooks/useAuth';
 import type { Auth } from '../utils/auth';
 import type { QueryClient } from '@tanstack/react-query';
 
@@ -16,19 +17,25 @@ function RouterSpinner() {
   return <Spinner show={isLoading} />;
 }
 
-export const Route = createRootRouteWithContext<{
+type RouterContextType = {
   auth: Auth;
   queryClient: QueryClient;
-}>()({
+};
+
+export const Route = createRootRouteWithContext<RouterContextType>()({
   component: RootComponent,
 });
 
 function RootComponent() {
+  const auth = useAuth();
   return (
     <>
       <div className={'flex min-h-screen flex-col'}>
         <div className={'flex items-center gap-2 border-b'}>
-          <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+          <div className="flex w-full items-center justify-between">
+            <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+            <pre className="text-indigo-500">{auth.username}</pre>
+          </div>
           <div className={'text-3xl'}>
             <RouterSpinner />
           </div>
@@ -41,7 +48,7 @@ function RootComponent() {
           </div>
         </div>
       </div>
-      <ReactQueryDevtools buttonPosition="top-right" />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
     </>
   );

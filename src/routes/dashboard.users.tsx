@@ -125,7 +125,7 @@ function UsersComponent() {
                     userId: user.id,
                   };
                 }}
-                className="block px-3 py-2 text-blue-700"
+                className="block px-3 py-2 text-indigo-700"
                 activeProps={{ className: 'font-bold' }}
               >
                 <pre className="text-sm">

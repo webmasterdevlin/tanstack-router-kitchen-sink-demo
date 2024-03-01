@@ -48,16 +48,14 @@ function App({ msalInstance }: Props) {
   return (
     <StrictMode>
       <MsalProvider instance={msalInstance}>
-        <>
-          <UnauthenticatedTemplate>
-            <Login />
-          </UnauthenticatedTemplate>
-          <AuthenticatedTemplate>
-            <QueryClientProvider client={queryClient}>
-              <InnerApp />
-            </QueryClientProvider>
-          </AuthenticatedTemplate>
-        </>
+        <UnauthenticatedTemplate>
+          <Login />
+        </UnauthenticatedTemplate>
+        <AuthenticatedTemplate>
+          <QueryClientProvider client={queryClient}>
+            <InnerApp />
+          </QueryClientProvider>
+        </AuthenticatedTemplate>
       </MsalProvider>
     </StrictMode>
   );

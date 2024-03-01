@@ -5,7 +5,6 @@ export const root = [
   ['/layout-a', 'layout a'],
   ['/layout-b', 'layout b'],
   ['/profile', 'profile'],
-  ['/login', 'login'],
 ] as const;
 
 export const dashboard = [

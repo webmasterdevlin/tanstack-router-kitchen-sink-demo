@@ -30,7 +30,7 @@ function InvoicesIndexComponent() {
           <InvoiceFields invoice={{} as Invoice} />
           <div>
             <button
-              className="rounded bg-blue-500 p-2 font-black uppercase text-white disabled:opacity-50"
+              className="rounded bg-indigo-500 p-2 font-black uppercase text-white disabled:opacity-50"
               disabled={status === 'pending'}
             >
               {status === 'pending' ? (

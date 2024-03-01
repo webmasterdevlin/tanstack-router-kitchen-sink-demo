@@ -76,7 +76,7 @@ function InvoiceComponent() {
               showNotes: old?.showNotes ? undefined : true,
             };
           }}
-          className="text-blue-700"
+          className="text-indigo-700"
           params={true}
         >
           {search.showNotes ? 'Close Notes' : 'Show Notes'}{' '}
@@ -101,7 +101,7 @@ function InvoiceComponent() {
       </div>
       <div>
         <button
-          className="rounded bg-blue-500 p-2 font-black uppercase text-white disabled:opacity-50"
+          className="rounded bg-indigo-500 p-2 font-black uppercase text-white disabled:opacity-50"
           disabled={status === 'pending'}
         >
           Save
