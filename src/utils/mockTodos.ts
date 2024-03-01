@@ -1,5 +1,7 @@
-import axios from 'axios';
 import { produce } from 'immer';
+
+import { EndPoints } from '../http-client/api-config';
+import { getAxios } from '../http-client/generic-api-calls';
 import { actionDelayFn, loaderDelayFn, shuffle } from './utils';
 import type { PickAsRequired } from '@tanstack/react-router';
 export type Invoice = {
@@ -47,7 +49,7 @@ let usersPromise: Promise<void>;
 const ensureInvoices = async () => {
   if (!invoicesPromise) {
     invoicesPromise = Promise.resolve().then(async () => {
-      const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
+      const { data } = await getAxios<Invoice[]>(EndPoints.posts);
       invoices = data.slice(0, 10);
     });
   }
@@ -58,7 +60,7 @@ const ensureInvoices = async () => {
 const ensureUsers = async () => {
   if (!usersPromise) {
     usersPromise = Promise.resolve().then(async () => {
-      const { data } = await axios.get('https://jsonplaceholder.typicode.com/users');
+      const { data } = await getAxios<User[]>(EndPoints.users);
       users = data.slice(0, 10);
     });
   }
