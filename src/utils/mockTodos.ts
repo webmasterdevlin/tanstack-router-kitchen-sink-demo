@@ -74,7 +74,7 @@ export async function fetchInvoices() {
   });
 }
 
-export async function fetchInvoiceById(id: string) {
+export async function fetchInvoiceById(id: number) {
   return loaderDelayFn(() => {
     return ensureInvoices().then(() => {
       const invoice = invoices.find(d => {

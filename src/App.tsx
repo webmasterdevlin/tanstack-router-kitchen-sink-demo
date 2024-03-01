@@ -4,14 +4,16 @@ import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-ro
 import { StrictMode } from 'react';
 import Login from './Login';
 import { Spinner } from './components/Spinner';
+import useAuth from './hooks/useAuth';
 import { routeTree } from './routeTree.gen';
-import { auth } from './utils/auth';
+import type { IPublicClientApplication } from '@azure/msal-browser';
 
 export const queryClient = new QueryClient();
 
 const router = createRouter({
   context: {
     auth: undefined!, // We'll inject this when we render
+    queryClient: queryClient,
   },
   defaultErrorComponent: ({ error }) => {
     return <ErrorComponent error={error} />;
@@ -33,7 +35,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
-function App({ msalInstance }: any) {
+function InnerApp() {
+  const auth = useAuth();
+  return <RouterProvider router={router} context={{ auth }} />;
+}
+
+type Props = {
+  msalInstance: IPublicClientApplication;
+};
+
+function App({ msalInstance }: Props) {
   return (
     <StrictMode>
       <MsalProvider instance={msalInstance}>
@@ -43,12 +54,7 @@ function App({ msalInstance }: any) {
           </UnauthenticatedTemplate>
           <AuthenticatedTemplate>
             <QueryClientProvider client={queryClient}>
-              <RouterProvider
-                router={router}
-                context={{
-                  auth,
-                }}
-              />
+              <InnerApp />
             </QueryClientProvider>
           </AuthenticatedTemplate>
         </>

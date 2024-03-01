@@ -8,7 +8,7 @@ import { fetchInvoiceById } from '../utils/mockTodos';
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
   loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceById(invoiceId);
+    return fetchInvoiceById(Number(invoiceId));
   },
   parseParams: params => {
     return {
