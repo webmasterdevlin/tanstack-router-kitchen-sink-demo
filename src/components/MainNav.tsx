@@ -1,8 +1,11 @@
+import { useMsal } from '@azure/msal-react';
 import { Link, useRouter } from '@tanstack/react-router';
+import { loginRequest } from '../auth/config';
 import useAuth from '../hooks/useAuth';
 import { root } from '../utils/routePaths';
 
 function MainNav() {
+  const { instance } = useMsal();
   const auth = useAuth();
   const router = useRouter();
 
@@ -10,6 +13,11 @@ function MainNav() {
     auth.logout();
     router.invalidate();
     router.navigate({ to: '/' });
+  }
+
+  function handleLogin() {
+    instance.loginRedirect(loginRequest);
+    router.invalidate();
   }
 
   return (
@@ -47,9 +55,15 @@ function MainNav() {
         contact us (masked to about us)
       </Link>
       <div>
-        <button onClick={handleLogout} className={'block px-3 py-2 capitalize text-indigo-700'}>
-          Logout
-        </button>
+        {auth.status === 'loggedIn' ? (
+          <button onClick={handleLogout} className={'block px-3 py-2 capitalize text-indigo-700'}>
+            Logout
+          </button>
+        ) : (
+          <button onClick={handleLogin} className={'block px-3 py-2 capitalize text-indigo-700'}>
+            Login
+          </button>
+        )}
       </div>
     </div>
   );

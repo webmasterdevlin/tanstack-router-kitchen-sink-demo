@@ -1,8 +1,8 @@
-import { MsalProvider, UnauthenticatedTemplate, AuthenticatedTemplate } from '@azure/msal-react';
+import { MsalProvider } from '@azure/msal-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
-import Login from './Login';
+
 import { Spinner } from './components/Spinner';
 import useAuth from './hooks/useAuth';
 import { routeTree } from './routeTree.gen';
@@ -48,14 +48,9 @@ function App({ msalInstance }: Props) {
   return (
     <StrictMode>
       <MsalProvider instance={msalInstance}>
-        <UnauthenticatedTemplate>
-          <Login />
-        </UnauthenticatedTemplate>
-        <AuthenticatedTemplate>
-          <QueryClientProvider client={queryClient}>
-            <InnerApp />
-          </QueryClientProvider>
-        </AuthenticatedTemplate>
+        <QueryClientProvider client={queryClient}>
+          <InnerApp />
+        </QueryClientProvider>
       </MsalProvider>
     </StrictMode>
   );

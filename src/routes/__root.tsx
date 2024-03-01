@@ -34,7 +34,7 @@ function RootComponent() {
         <div className={'flex items-center gap-2 border-b'}>
           <div className="flex w-full items-center justify-between">
             <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
-            <pre className="text-indigo-500">{auth.username}</pre>
+            <pre className="text-indigo-500">{auth?.username}</pre>
           </div>
           <div className={'text-3xl'}>
             <RouterSpinner />
