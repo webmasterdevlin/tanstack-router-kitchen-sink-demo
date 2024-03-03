@@ -7,12 +7,9 @@ import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
-  loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceById(Number(invoiceId));
-  },
   parseParams: params => {
     return {
-      invoiceId: z.number().int().parse(Number(params.invoiceId)),
+      invoiceId: z.number().int().parse(params.invoiceId),
     };
   },
   stringifyParams: ({ invoiceId }) => {
@@ -25,6 +22,10 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
         showNotes: z.boolean().optional(),
       })
       .parse(search);
+  },
+  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+  loader: ({ params: { invoiceId } }) => {
+    return fetchInvoiceById(Number(invoiceId));
   },
 });
 
