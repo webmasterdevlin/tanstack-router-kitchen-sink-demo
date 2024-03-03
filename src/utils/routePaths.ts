@@ -4,7 +4,7 @@ export const root = [
   ['/expensive', 'expensive (lazy)'],
   ['/layout-a', 'layout a'],
   ['/layout-b', 'layout b'],
-  ['/profile', 'profile'],
+  // ['/profile', 'profile'], // type error
 ] as const;
 
 export const dashboard = [

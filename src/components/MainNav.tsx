@@ -23,6 +23,9 @@ function MainNav() {
   return (
     <div className={'w-56 divide-y'}>
       {root.map(([to, label]) => {
+        if (to === '/dashboard' && auth.status !== 'loggedIn') {
+          return null;
+        }
         return (
           <div key={to}>
             <Link
