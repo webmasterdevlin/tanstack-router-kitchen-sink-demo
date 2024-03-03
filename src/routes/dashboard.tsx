@@ -2,7 +2,7 @@ import { UnauthenticatedTemplate, AuthenticatedTemplate } from '@azure/msal-reac
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import DashboardNav from '../components/DashboardNav';
 import useAuth from '../hooks/useAuth';
-import Login from './-ignored-pages/Login';
+import Login from './-ignored-pages/login';
 
 export const Route = createFileRoute('/dashboard')({
   beforeLoad: ({ context }) => {
