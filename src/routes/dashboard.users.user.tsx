@@ -4,15 +4,16 @@ import { fetchUserById } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/users/user')({
   component: UserComponent,
-  loaderDeps: ({ search: { userId } }) => {
-    return { userId };
-  },
   validateSearch: z.object({
     userId: z.number(),
   }),
-
+  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+  loaderDeps: ({ search: { userId } }) => {
+    return { userId };
+  },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps: { userId } }) => {
+    console.log(userId);
     return fetchUserById(userId);
   },
 });
