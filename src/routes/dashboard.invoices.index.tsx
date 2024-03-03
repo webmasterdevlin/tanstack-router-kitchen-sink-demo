@@ -1,15 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { InvoiceFields } from '../components/InvoiceFields';
 import { Spinner } from '../components/Spinner';
-import useCreateInvoice from '../hooks/useCreateInvoice';
-import type { Invoice } from '../utils/mockTodos';
+import { useMutation } from '../hooks/useMutation';
+import { postInvoice, type Invoice } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/invoices/')({
   component: InvoicesIndexComponent,
 });
 
 function InvoicesIndexComponent() {
-  const { mutateAsync: createInvoiceMutation, status } = useCreateInvoice();
+  const router = useRouter();
+
+  const { mutate, status } = useMutation({
+    fn: postInvoice,
+    onSuccess: () => {
+      return router.invalidate();
+    },
+  });
 
   return (
     <>
@@ -19,7 +26,7 @@ function InvoicesIndexComponent() {
             event.preventDefault();
             event.stopPropagation();
             const formData = new FormData(event.target as HTMLFormElement);
-            createInvoiceMutation({
+            mutate({
               body: formData.get('body') as string,
               title: formData.get('title') as string,
             });

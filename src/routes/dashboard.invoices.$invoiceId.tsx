@@ -1,9 +1,9 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { z } from 'zod';
 import { InvoiceFields } from '../components/InvoiceFields';
-import useUpdateInvoice from '../hooks/useUpdateInvoice';
-import { fetchInvoiceById } from '../utils/mockTodos';
+import { useMutation } from '../hooks/useMutation';
+import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
@@ -31,11 +31,15 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
 function InvoiceComponent() {
   const search = Route.useSearch();
   const invoice = Route.useLoaderData();
-
+  const router = useRouter();
   const navigate = useNavigate({ from: Route.fullPath });
 
-  const { mutateAsync: updateInvoiceMutation, status, variables, submittedAt } = useUpdateInvoice();
-
+  const { mutate, status, variables, submittedAt } = useMutation({
+    fn: patchInvoice,
+    onSuccess: () => {
+      return router.invalidate();
+    },
+  });
   const [notes, setNotes] = useState(search.notes ?? '');
 
   useEffect(() => {
@@ -58,7 +62,7 @@ function InvoiceComponent() {
         event.preventDefault();
         event.stopPropagation();
         const formData = new FormData(event.target as HTMLFormElement);
-        updateInvoiceMutation({
+        mutate({
           body: formData.get('body') as string,
           id: invoice.id,
           title: formData.get('title') as string,

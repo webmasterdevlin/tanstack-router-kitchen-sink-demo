@@ -1,11 +1,9 @@
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet, createRootRouteWithContext, useRouterState } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import MainNav from '../components/MainNav';
 import { Spinner } from '../components/Spinner';
 import useAuth from '../hooks/useAuth';
 import type { Auth } from '../models/auth';
-import type { QueryClient } from '@tanstack/react-query';
 
 /* Show a global spinner when the router is transitioning */
 function RouterSpinner() {
@@ -19,7 +17,6 @@ function RouterSpinner() {
 
 type RouterContextType = {
   auth: Auth;
-  queryClient: QueryClient;
 };
 
 export const Route = createRootRouteWithContext<RouterContextType>()({
@@ -51,7 +48,6 @@ function RootComponent() {
           </div>
         </div>
       </div>
-      <ReactQueryDevtools buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
     </>
   );

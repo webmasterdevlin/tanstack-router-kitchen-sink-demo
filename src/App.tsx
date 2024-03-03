@@ -1,5 +1,5 @@
 import { MsalProvider } from '@azure/msal-react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 
@@ -8,12 +8,9 @@ import useAuth from './hooks/useAuth';
 import { routeTree } from './routeTree.gen';
 import type { IPublicClientApplication } from '@azure/msal-browser';
 
-export const queryClient = new QueryClient();
-
 const router = createRouter({
   context: {
     auth: undefined!, // We'll inject this when we render
-    queryClient: queryClient,
   },
   defaultErrorComponent: ({ error }) => {
     return <ErrorComponent error={error} />;
@@ -48,9 +45,7 @@ function App({ msalInstance }: Props) {
   return (
     <StrictMode>
       <MsalProvider instance={msalInstance}>
-        <QueryClientProvider client={queryClient}>
-          <InnerApp />
-        </QueryClientProvider>
+        <InnerApp />
       </MsalProvider>
     </StrictMode>
   );
