@@ -1,15 +1,13 @@
-import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
-import { useState, useEffect } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { InvoiceFields } from '../components/InvoiceFields';
-import { useMutation } from '../hooks/useMutation';
-import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
+import { fetchInvoiceById } from '../utils/mockTodos';
+import { invoiceQueryOptions, useUpdateInvoiceMutation } from '../utils/queryOptions';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
-  loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceById(Number(invoiceId));
-  },
   parseParams: params => {
     return {
       invoiceId: z.number().int().parse(Number(params.invoiceId)),
@@ -26,20 +24,19 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
       })
       .parse(search);
   },
+
+  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+  loader: ({ params: { invoiceId } }) => {
+    return fetchInvoiceById(invoiceId);
+  },
 });
 
 function InvoiceComponent() {
   const search = Route.useSearch();
-  const invoice = Route.useLoaderData();
-  const router = useRouter();
+  const params = Route.useParams();
   const navigate = useNavigate({ from: Route.fullPath });
-
-  const { mutate, status, variables, submittedAt } = useMutation({
-    fn: patchInvoice,
-    onSuccess: () => {
-      return router.invalidate();
-    },
-  });
+  const { data: invoice } = useSuspenseQuery(invoiceQueryOptions(params.invoiceId));
+  const { mutate, status, variables, submittedAt } = useUpdateInvoiceMutation(params.invoiceId);
   const [notes, setNotes] = useState(search.notes ?? '');
 
   useEffect(() => {
