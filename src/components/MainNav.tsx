@@ -47,13 +47,6 @@ function MainNav() {
           </div>
         );
       })}
-      <Link
-        className={'block px-3 py-2 capitalize text-indigo-700'}
-        to="https://twitter.com/DevlinDuldulao"
-        target="_blank"
-      >
-        twitter
-      </Link>
       <Link className={'block px-3 py-2 capitalize text-indigo-700'} to="/contact-us" mask={{ to: '/about-us' }}>
         contact us (masked to about us)
       </Link>

@@ -2,7 +2,6 @@ import { MsalProvider } from '@azure/msal-react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
-import { StrictMode } from 'react';
 
 import { Spinner } from './components/Spinner';
 import useAuth from './hooks/useAuth';
@@ -47,13 +46,11 @@ type Props = {
 
 function App({ msalInstance }: Props) {
   return (
-    <StrictMode>
-      <MsalProvider instance={msalInstance}>
-        <QueryClientProvider client={queryClient}>
-          <InnerApp />
-        </QueryClientProvider>
-      </MsalProvider>
-    </StrictMode>
+    <MsalProvider instance={msalInstance}>
+      <QueryClientProvider client={queryClient}>
+        <InnerApp />
+      </QueryClientProvider>
+    </MsalProvider>
   );
 }
 export default App;
