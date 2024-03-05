@@ -1,7 +1,6 @@
 import { MsalProvider } from '@azure/msal-react';
 
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
-import { StrictMode } from 'react';
 
 import { Spinner } from './components/Spinner';
 import useAuth from './hooks/useAuth';
@@ -22,8 +21,8 @@ const router = createRouter({
       </div>
     );
   },
-  defaultPreload: 'intent',
-  routeTree, // Preloading by "intent" works by using hover and touch start events on <Link> components to preload the dependencies for the destination route.
+  defaultPreload: 'intent', // Preloading by "intent" works by using hover and touch start events on <Link> components to preload the dependencies for the destination route.
+  routeTree,
 });
 
 declare module '@tanstack/react-router' {
@@ -43,11 +42,9 @@ type Props = {
 
 function App({ msalInstance }: Props) {
   return (
-    <StrictMode>
-      <MsalProvider instance={msalInstance}>
-        <InnerApp />
-      </MsalProvider>
-    </StrictMode>
+    <MsalProvider instance={msalInstance}>
+      <InnerApp />
+    </MsalProvider>
   );
 }
 export default App;
