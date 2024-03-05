@@ -9,7 +9,7 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
   parseParams: params => {
     return {
-      invoiceId: z.number().int().parse(params.invoiceId),
+      invoiceId: z.number().int().parse(Number(params.invoiceId)),
     };
   },
   stringifyParams: ({ invoiceId }) => {
