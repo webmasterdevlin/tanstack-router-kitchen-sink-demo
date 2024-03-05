@@ -23,6 +23,10 @@ import { Route as DashboardUsersImport } from './routes/dashboard.users'
 import { Route as DashboardInvoicesImport } from './routes/dashboard.invoices'
 import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b'
 import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a'
+import { Route as stocksStarbucksCorporationImport } from './routes/(stocks)/starbucks-corporation'
+import { Route as stocksNikeIncImport } from './routes/(stocks)/nike-inc'
+import { Route as stocksBerkshireHathawayIncImport } from './routes/(stocks)/berkshire-hathaway-inc'
+import { Route as stocksAppleIncImport } from './routes/(stocks)/apple-inc'
 import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.index'
 import { Route as DashboardInvoicesIndexImport } from './routes/dashboard.invoices.index'
 import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user'
@@ -91,6 +95,30 @@ const LayoutLayoutARoute = LayoutLayoutAImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const stocksStarbucksCorporationRoute = stocksStarbucksCorporationImport.update(
+  {
+    path: '/starbucks-corporation',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const stocksNikeIncRoute = stocksNikeIncImport.update({
+  path: '/nike-inc',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const stocksBerkshireHathawayIncRoute = stocksBerkshireHathawayIncImport.update(
+  {
+    path: '/berkshire-hathaway-inc',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const stocksAppleIncRoute = stocksAppleIncImport.update({
+  path: '/apple-inc',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DashboardUsersIndexRoute = DashboardUsersIndexImport.update({
   path: '/',
   getParentRoute: () => DashboardUsersRoute,
@@ -135,6 +163,22 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/(stocks)/apple-inc': {
+      preLoaderRoute: typeof stocksAppleIncImport
+      parentRoute: typeof rootRoute
+    }
+    '/(stocks)/berkshire-hathaway-inc': {
+      preLoaderRoute: typeof stocksBerkshireHathawayIncImport
+      parentRoute: typeof rootRoute
+    }
+    '/(stocks)/nike-inc': {
+      preLoaderRoute: typeof stocksNikeIncImport
+      parentRoute: typeof rootRoute
+    }
+    '/(stocks)/starbucks-corporation': {
+      preLoaderRoute: typeof stocksStarbucksCorporationImport
       parentRoute: typeof rootRoute
     }
     '/_layout/layout-a': {
@@ -198,6 +242,10 @@ export const routeTree = rootRoute.addChildren([
     ]),
     DashboardIndexRoute,
   ]),
+  stocksAppleIncRoute,
+  stocksBerkshireHathawayIncRoute,
+  stocksNikeIncRoute,
+  stocksStarbucksCorporationRoute,
   ExpensiveIndexLazyRoute,
 ])
 
