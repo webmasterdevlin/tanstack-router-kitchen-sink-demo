@@ -21,7 +21,7 @@ function InvoicesComponent() {
               <Link
                 to="/dashboard/invoices/$invoiceId"
                 params={{
-                  invoiceId: invoice.id.toString(),
+                  invoiceId: invoice.id,
                 }}
                 preload="intent"
                 className="block px-3 py-2 text-indigo-700"
