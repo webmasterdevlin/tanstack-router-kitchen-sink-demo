@@ -8,15 +8,6 @@ type UsersViewSortBy = 'name' | 'id' | 'email';
 
 export const Route = createFileRoute('/dashboard/users')({
   component: UsersComponent,
-  loader: ({ deps }) => {
-    return fetchUsers(deps);
-  },
-  loaderDeps: ({ search }) => {
-    return {
-      filterBy: search.usersView?.filterBy,
-      sortBy: search.usersView?.sortBy,
-    };
-  },
   preSearchFilters: [
     // Persist (or set as default) the usersView search param
     // while navigating within or to this route (or it's children!)
@@ -37,6 +28,17 @@ export const Route = createFileRoute('/dashboard/users')({
       })
       .optional(),
   }).parse,
+  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+  loaderDeps: ({ search }) => {
+    return {
+      filterBy: search.usersView?.filterBy,
+      sortBy: search.usersView?.sortBy,
+    };
+  },
+  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+  loader: ({ deps }) => {
+    return fetchUsers(deps);
+  },
 });
 
 function UsersComponent() {
