@@ -31,7 +31,7 @@ export const msalConfig = {
     redirectUri: '/',
   },
   cache: {
-    cacheLocation: 'sessionStorage',
+    cacheLocation: 'localStorage',
     storeAuthStateInCookie: false,
   },
   system: {
@@ -65,6 +65,6 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-  scopes: ['https://reactazureadb2cdemo.onmicrosoft.com/tests-api/tests.read'],
+  scopes: ['openid', 'https://reactazureadb2cdemo.onmicrosoft.com/tests-api/tests.read'],
 };
 export const msalInstance = new PublicClientApplication(msalConfig);
