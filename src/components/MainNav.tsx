@@ -27,24 +27,23 @@ function MainNav() {
           return null;
         }
         return (
-          <div key={to}>
-            <Link
-              to={to}
-              key={to}
-              activeOptions={
-                {
-                  // If the route points to the root of it's parent,
-                  // make sure it's only active if it's exact
-                  // exact: to === '.',
-                }
+          <Link
+            to={to}
+            key={to}
+            activeOptions={
+              {
+                // If the route points to the root of it's parent,
+                // make sure it's only active if it's exact
+                // exact: to === '.',
               }
-              className={'block px-3 py-2 capitalize text-indigo-700'}
-              // Make "active" links bold
-              activeProps={{ className: 'font-bold' }}
-            >
-              {label}
-            </Link>
-          </div>
+            }
+            className={'block px-3 py-2 capitalize text-indigo-700'}
+            // Make "active" links bold
+            activeProps={{ className: 'font-bold' }}
+            params={null}
+          >
+            {label}
+          </Link>
         );
       })}
       <Link className={'block px-3 py-2 capitalize text-indigo-700'} to="/contact-us" mask={{ to: '/about-us' }}>
