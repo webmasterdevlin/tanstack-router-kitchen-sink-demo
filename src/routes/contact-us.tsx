@@ -6,7 +6,7 @@ export const Route = createFileRoute('/contact-us')({
     const [formIsDirty, setFromIsDirty] = useState(false);
     return (
       <Block
-        blocker={() => {
+        blockerFn={() => {
           return window.confirm('Are you sure you want to leave?');
         }}
         condition={formIsDirty}

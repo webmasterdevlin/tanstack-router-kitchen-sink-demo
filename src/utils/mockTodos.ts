@@ -3,7 +3,9 @@ import { produce } from 'immer';
 import { EndPoints } from '../http-client/api-config';
 import { getAxios } from '../http-client/generic-api-calls';
 import { actionDelayFn, loaderDelayFn, shuffle } from './utils';
-import type { PickAsRequired } from '@tanstack/react-router';
+
+type PickAsRequired<TValue, TKey extends keyof TValue> = Omit<TValue, TKey> & Required<Pick<TValue, TKey>>;
+
 export type Invoice = {
   id: number;
   title: string;
