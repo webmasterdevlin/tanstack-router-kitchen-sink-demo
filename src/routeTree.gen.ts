@@ -146,78 +146,135 @@ const DashboardInvoicesInvoiceIdRoute = DashboardInvoicesInvoiceIdImport.update(
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
     '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
       preLoaderRoute: typeof AboutUsImport
       parentRoute: typeof rootRoute
     }
     '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
       preLoaderRoute: typeof ContactUsImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
     '/(stocks)/apple-inc': {
+      id: '/apple-inc'
+      path: '/apple-inc'
+      fullPath: '/apple-inc'
       preLoaderRoute: typeof stocksAppleIncImport
       parentRoute: typeof rootRoute
     }
     '/(stocks)/berkshire-hathaway-inc': {
+      id: '/berkshire-hathaway-inc'
+      path: '/berkshire-hathaway-inc'
+      fullPath: '/berkshire-hathaway-inc'
       preLoaderRoute: typeof stocksBerkshireHathawayIncImport
       parentRoute: typeof rootRoute
     }
     '/(stocks)/nike-inc': {
+      id: '/nike-inc'
+      path: '/nike-inc'
+      fullPath: '/nike-inc'
       preLoaderRoute: typeof stocksNikeIncImport
       parentRoute: typeof rootRoute
     }
     '/(stocks)/starbucks-corporation': {
+      id: '/starbucks-corporation'
+      path: '/starbucks-corporation'
+      fullPath: '/starbucks-corporation'
       preLoaderRoute: typeof stocksStarbucksCorporationImport
       parentRoute: typeof rootRoute
     }
     '/_layout/layout-a': {
+      id: '/_layout/layout-a'
+      path: '/layout-a'
+      fullPath: '/layout-a'
       preLoaderRoute: typeof LayoutLayoutAImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/layout-b': {
+      id: '/_layout/layout-b'
+      path: '/layout-b'
+      fullPath: '/layout-b'
       preLoaderRoute: typeof LayoutLayoutBImport
       parentRoute: typeof LayoutImport
     }
     '/dashboard/invoices': {
+      id: '/dashboard/invoices'
+      path: '/invoices'
+      fullPath: '/dashboard/invoices'
       preLoaderRoute: typeof DashboardInvoicesImport
       parentRoute: typeof DashboardImport
     }
     '/dashboard/users': {
+      id: '/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
       preLoaderRoute: typeof DashboardUsersImport
       parentRoute: typeof DashboardImport
     }
     '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof DashboardImport
     }
     '/expensive/': {
+      id: '/expensive/'
+      path: '/expensive'
+      fullPath: '/expensive'
       preLoaderRoute: typeof ExpensiveIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/dashboard/invoices/$invoiceId': {
+      id: '/dashboard/invoices/$invoiceId'
+      path: '/$invoiceId'
+      fullPath: '/dashboard/invoices/$invoiceId'
       preLoaderRoute: typeof DashboardInvoicesInvoiceIdImport
       parentRoute: typeof DashboardInvoicesImport
     }
     '/dashboard/users/user': {
+      id: '/dashboard/users/user'
+      path: '/user'
+      fullPath: '/dashboard/users/user'
       preLoaderRoute: typeof DashboardUsersUserImport
       parentRoute: typeof DashboardUsersImport
     }
     '/dashboard/invoices/': {
+      id: '/dashboard/invoices/'
+      path: '/'
+      fullPath: '/dashboard/invoices/'
       preLoaderRoute: typeof DashboardInvoicesIndexImport
       parentRoute: typeof DashboardInvoicesImport
     }
     '/dashboard/users/': {
+      id: '/dashboard/users/'
+      path: '/'
+      fullPath: '/dashboard/users/'
       preLoaderRoute: typeof DashboardUsersIndexImport
       parentRoute: typeof DashboardUsersImport
     }
@@ -226,27 +283,135 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
+export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutLayoutARoute,
+    LayoutLayoutBRoute,
+  }),
   AboutUsRoute,
   ContactUsRoute,
-  DashboardRoute.addChildren([
-    DashboardInvoicesRoute.addChildren([
+  DashboardRoute: DashboardRoute.addChildren({
+    DashboardInvoicesRoute: DashboardInvoicesRoute.addChildren({
       DashboardInvoicesInvoiceIdRoute,
       DashboardInvoicesIndexRoute,
-    ]),
-    DashboardUsersRoute.addChildren([
+    }),
+    DashboardUsersRoute: DashboardUsersRoute.addChildren({
       DashboardUsersUserRoute,
       DashboardUsersIndexRoute,
-    ]),
+    }),
     DashboardIndexRoute,
-  ]),
+  }),
   stocksAppleIncRoute,
   stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute,
   stocksStarbucksCorporationRoute,
   ExpensiveIndexLazyRoute,
-])
+})
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/_layout",
+        "/about-us",
+        "/contact-us",
+        "/dashboard",
+        "/apple-inc",
+        "/berkshire-hathaway-inc",
+        "/nike-inc",
+        "/starbucks-corporation",
+        "/expensive/"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/_layout": {
+      "filePath": "_layout.tsx",
+      "children": [
+        "/_layout/layout-a",
+        "/_layout/layout-b"
+      ]
+    },
+    "/about-us": {
+      "filePath": "about-us.tsx"
+    },
+    "/contact-us": {
+      "filePath": "contact-us.tsx"
+    },
+    "/dashboard": {
+      "filePath": "dashboard.tsx",
+      "children": [
+        "/dashboard/invoices",
+        "/dashboard/users",
+        "/dashboard/"
+      ]
+    },
+    "/apple-inc": {
+      "filePath": "(stocks)/apple-inc.tsx"
+    },
+    "/berkshire-hathaway-inc": {
+      "filePath": "(stocks)/berkshire-hathaway-inc.tsx"
+    },
+    "/nike-inc": {
+      "filePath": "(stocks)/nike-inc.tsx"
+    },
+    "/starbucks-corporation": {
+      "filePath": "(stocks)/starbucks-corporation.tsx"
+    },
+    "/_layout/layout-a": {
+      "filePath": "_layout.layout-a.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/layout-b": {
+      "filePath": "_layout.layout-b.tsx",
+      "parent": "/_layout"
+    },
+    "/dashboard/invoices": {
+      "filePath": "dashboard.invoices.tsx",
+      "parent": "/dashboard",
+      "children": [
+        "/dashboard/invoices/$invoiceId",
+        "/dashboard/invoices/"
+      ]
+    },
+    "/dashboard/users": {
+      "filePath": "dashboard.users.tsx",
+      "parent": "/dashboard",
+      "children": [
+        "/dashboard/users/user",
+        "/dashboard/users/"
+      ]
+    },
+    "/dashboard/": {
+      "filePath": "dashboard.index.tsx",
+      "parent": "/dashboard"
+    },
+    "/expensive/": {
+      "filePath": "expensive/index.lazy.tsx"
+    },
+    "/dashboard/invoices/$invoiceId": {
+      "filePath": "dashboard.invoices.$invoiceId.tsx",
+      "parent": "/dashboard/invoices"
+    },
+    "/dashboard/users/user": {
+      "filePath": "dashboard.users.user.tsx",
+      "parent": "/dashboard/users"
+    },
+    "/dashboard/invoices/": {
+      "filePath": "dashboard.invoices.index.tsx",
+      "parent": "/dashboard/invoices"
+    },
+    "/dashboard/users/": {
+      "filePath": "dashboard.users.index.tsx",
+      "parent": "/dashboard/users"
+    }
+  }
+}
+ROUTE_MANIFEST_END */
