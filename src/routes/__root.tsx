@@ -1,6 +1,6 @@
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet, createRootRouteWithContext, useRouterState } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+import { lazy, Suspense } from 'react';
 import MainNav from '../components/MainNav';
 import { Spinner } from '../components/Spinner';
 import useAuth from '../hooks/useAuth';
@@ -52,7 +52,27 @@ function RootComponent() {
         </div>
       </div>
       <ReactQueryDevtools buttonPosition="bottom-left" />
-      <TanStackRouterDevtools position="bottom-right" />
+      <Suspense>
+        <TanStackRouterDevtools position="bottom-right" />
+      </Suspense>
     </>
   );
 }
+
+const TanStackRouterDevtools =
+  process.env.NODE_ENV === 'production'
+    ? () => {
+        return null;
+      } // Render nothing in production
+    : lazy(() =>
+        // Lazy load in development
+        {
+          return import('@tanstack/router-devtools').then(res => {
+            return {
+              default: res.TanStackRouterDevtools,
+              // For Embedded Mode
+              // default: res.TanStackRouterDevtoolsPanel
+            };
+          });
+        },
+      );
