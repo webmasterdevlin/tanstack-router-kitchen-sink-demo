@@ -16,6 +16,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:deprecation/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -35,8 +36,9 @@ module.exports = {
       },
     },
   },
-  plugins: ['react', 'prettier', '@typescript-eslint', 'autofix', 'react-hooks', 'sort-keys-fix'],
+  plugins: ['react', 'prettier', '@typescript-eslint', 'autofix', 'react-hooks', 'sort-keys-fix',  'deprecation'],
   rules: {
+    'deprecation/deprecation': 'error',
     'prettier/prettier': ['error', prettierOptions],
     'sort-keys-fix/sort-keys-fix': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
