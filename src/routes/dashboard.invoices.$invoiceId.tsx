@@ -7,13 +7,15 @@ import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
-  parseParams: params => {
-    return {
-      invoiceId: z.number().int().parse(Number(params.invoiceId)),
-    };
-  },
-  stringifyParams: ({ invoiceId }) => {
-    return { invoiceId: `${invoiceId}` };
+  params: {
+    parse: params => {
+      return {
+        invoiceId: z.number().int().parse(Number(params.invoiceId))
+      }
+    },
+    stringify: ({ invoiceId }) => {
+      return { invoiceId: `${invoiceId}` };
+    },
   },
   validateSearch: search => {
     return z
