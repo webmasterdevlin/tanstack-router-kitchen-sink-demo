@@ -11,7 +11,7 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
     parse: params => {
       return {
         invoiceId: z.number().int().parse(Number(params.invoiceId))
-      }
+      };
     },
     stringify: ({ invoiceId }) => {
       return { invoiceId: `${invoiceId}` };

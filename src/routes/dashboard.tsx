@@ -16,7 +16,6 @@ export const Route = createFileRoute('/dashboard')({
     }
   },
 
-  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   component: () => {
     const auth = useAuth();
     if (auth.status !== 'loggedIn') {
