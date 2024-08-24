@@ -1,8 +1,10 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
 import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
+import { queryClient } from '../App.tsx';
 import { Spinner } from '../components/Spinner';
-import { fetchUsers } from '../utils/mockTodos';
+import { usersQueryOptions } from '../utils/queryOptions.ts';
 
 type UsersViewSortBy = 'name' | 'id' | 'email';
 
@@ -37,14 +39,15 @@ export const Route = createFileRoute('/dashboard/users')({
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps }) => {
-    return fetchUsers(deps);
+    return queryClient.ensureQueryData(usersQueryOptions(deps));
   },
 });
 
 function UsersComponent() {
   const navigate = useNavigate({ from: Route.fullPath });
   const { usersView } = Route.useSearch();
-  const users = Route.useLoaderData();
+  const deps = Route.useLoaderDeps();
+  const { data: users } = useSuspenseQuery(usersQueryOptions(deps));
   const sortBy = usersView?.sortBy ?? 'name';
   const filterBy = usersView?.filterBy;
 
@@ -121,9 +124,9 @@ function UsersComponent() {
             <div key={user.id}>
               <Link
                 to="/dashboard/users/user"
-                search={d => {
+                search={(old: any) => {
                   return {
-                    ...d,
+                    ...old,
                     userId: user.id,
                   };
                 }}

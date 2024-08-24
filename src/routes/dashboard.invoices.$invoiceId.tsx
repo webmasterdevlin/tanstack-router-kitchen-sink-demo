@@ -29,7 +29,7 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ context: { queryClient }, params }) => {
     return queryClient.ensureQueryData(invoiceQueryOptions(params.invoiceId));
-  }
+  },
 });
 
 function InvoiceComponent() {

@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2edd4ca-7ac2-404a-8c50-c2e4b6b927cb" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard.invoices.$invoiceId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.invoices.$invoiceId.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.users.index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.users.index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.users.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.users.user.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.users.user.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +58,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "terminal",
+    "prettierjs.PrettierConfiguration.Package": "/Users/devlinduldulao/Documents/DEVELOPMENT/React/tanstack-router-kitchen-sink/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/devlinduldulao/Documents/DEVELOPMENT/React/tanstack-router-kitchen-sink/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -84,7 +90,7 @@
       <updated>1724324455952</updated>
       <workItem from="1724324456894" duration="7720000" />
       <workItem from="1724513333780" duration="13000" />
-      <workItem from="1724513372000" duration="2490000" />
+      <workItem from="1724513372000" duration="5512000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -102,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724327463386</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update">
+      <option name="closed" value="true" />
+      <created>1724515912085</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724515912085</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

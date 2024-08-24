@@ -14,15 +14,6 @@ export const Route = createFileRoute('/dashboard')({
       //   to: '/',
       // });
     }
-    // Pass the devlin function to the route context. It creates or replaces a function.
-    return {
-      devlin: () => {
-        return console.log('devlin');
-      },
-    };
-  },
-  loader: ({ context }) => {
-    context.devlin();
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   component: () => {

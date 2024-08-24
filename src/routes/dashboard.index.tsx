@@ -1,19 +1,21 @@
 import { useMsal } from '@azure/msal-react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { fetchInvoices } from '../utils/mockTodos';
+import { invoicesQueryOptions } from '../utils/queryOptions.ts';
 
 export const Route = createFileRoute('/dashboard/')({
   component: DashboardIndexComponent,
-  loader: () => {
-    return fetchInvoices();
+  // Use the `loader` option to ensure that the data is loaded
+  loader: ({ context: { queryClient } }) => {
+    return queryClient.ensureQueryData(invoicesQueryOptions());
   },
 });
 
 function DashboardIndexComponent() {
-  const invoices = Route.useLoaderData();
   const { instance, accounts } = useMsal();
-
+  // Read the data from the cache and subscribe to updates
+  const { data: invoices } = useSuspenseQuery(invoicesQueryOptions());
   useEffect(() => {
     instance
       ?.acquireTokenSilent({

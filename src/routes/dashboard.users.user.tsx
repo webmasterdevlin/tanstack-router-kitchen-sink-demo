@@ -1,6 +1,8 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { fetchUserById } from '../utils/mockTodos';
+import { queryClient } from '../App.tsx';
+import { userQueryOptions } from '../utils/queryOptions.ts';
 
 export const Route = createFileRoute('/dashboard/users/user')({
   component: UserComponent,
@@ -14,12 +16,13 @@ export const Route = createFileRoute('/dashboard/users/user')({
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps: { userId } }) => {
     console.log(userId);
-    return fetchUserById(userId);
+    return queryClient.ensureQueryData(userQueryOptions(userId));
   },
 });
 
 function UserComponent() {
-  const user = Route.useLoaderData();
+  const { userId } = Route.useLoaderDeps();
+  const { data: user } = useSuspenseQuery(userQueryOptions(userId));
 
   return (
     <>

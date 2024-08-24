@@ -1,7 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dashboard/users/')({
+  beforeLoad: () => {
+    // Pass the devlin function to the route context. It creates or replaces a function.
+    return {
+      devlin: () => {
+        return console.log('devlin');
+      },
+    };
+  },
   component: UsersIndexComponent,
+  loader: ({ context }) => {
+    context.devlin();
+  },
 });
 
 function UsersIndexComponent() {
