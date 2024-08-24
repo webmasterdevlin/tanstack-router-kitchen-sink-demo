@@ -3,18 +3,19 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { InvoiceFields } from '../components/InvoiceFields';
-import { fetchInvoiceById } from '../utils/mockTodos';
 import { invoiceQueryOptions, useUpdateInvoiceMutation } from '../utils/queryOptions';
 
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
-  parseParams: params => {
-    return {
-      invoiceId: z.number().int().parse(Number(params.invoiceId)),
-    };
-  },
-  stringifyParams: ({ invoiceId }) => {
-    return { invoiceId: `${invoiceId}` };
+  params: {
+    parse: params => {
+      return {
+        invoiceId: z.number().int().parse(Number(params.invoiceId)),
+      };
+    },
+    stringify: ({ invoiceId }) => {
+      return { invoiceId: `${invoiceId}` };
+    },
   },
   validateSearch: search => {
     return z
@@ -26,9 +27,9 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   },
 
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
-  loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceById(invoiceId);
-  },
+  loader: ({ context: { queryClient }, params }) => {
+    return queryClient.ensureQueryData(invoiceQueryOptions(params.invoiceId));
+  }
 });
 
 function InvoiceComponent() {

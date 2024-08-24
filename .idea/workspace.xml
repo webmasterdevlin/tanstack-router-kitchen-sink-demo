@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2edd4ca-7ac2-404a-8c50-c2e4b6b927cb" name="Changes" comment="update" />
+    <list default="true" id="a2edd4ca-7ac2-404a-8c50-c2e4b6b927cb" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.invoices.$invoiceId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.invoices.$invoiceId.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,21 +22,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "webmasterdevlin"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;webmasterdevlin&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/webmasterdevlin/tanstack-router-kitchen-sink-demo.git",
-    "accountId": "c980d4b8-65c4-4031-9b60-6f274ea945e3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/webmasterdevlin/tanstack-router-kitchen-sink-demo.git&quot;,
+    &quot;accountId&quot;: &quot;c980d4b8-65c4-4031-9b60-6f274ea945e3&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2l0kaVyabQFRrswwe1SbDGtofO8" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -43,13 +47,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "tanstack-query",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "settings.editor.selected.configurable": "terminal",
     "ts.external.directory.path": "/Users/devlinduldulao/Documents/DEVELOPMENT/React/tanstack-router-kitchen-sink/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -59,6 +63,7 @@
       <map>
         <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
         <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
       </map>
     </option>
   </component>
@@ -78,6 +83,8 @@
       <option name="presentableId" value="Default" />
       <updated>1724324455952</updated>
       <workItem from="1724324456894" duration="7720000" />
+      <workItem from="1724513333780" duration="13000" />
+      <workItem from="1724513372000" duration="2490000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
