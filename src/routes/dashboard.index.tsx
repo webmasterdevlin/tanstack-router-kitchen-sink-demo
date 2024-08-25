@@ -10,6 +10,15 @@ export const Route = createFileRoute('/dashboard/')({
   loader: ({ context: { queryClient } }) => {
     return queryClient.ensureQueryData(invoicesQueryOptions());
   },
+  // https://developer.mozilla.org/en-US/docs/Learn/Performance/Web_Performance_Basics
+
+  /*
+    - preconnect and dns-prefetch are both about preparing the connection.
+
+    - prefetch and preload are about fetching resources, with preload 
+      prioritizing critical resources for the current 
+      page and prefetch targeting future needs with lower priority.
+    */
 });
 
 function DashboardIndexComponent() {
