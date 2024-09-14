@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DeferredDataImport } from './routes/deferred-data'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as ContactUsImport } from './routes/contact-us'
 import { Route as AboutUsImport } from './routes/about-us'
@@ -37,6 +38,11 @@ import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.in
 const ExpensiveIndexLazyImport = createFileRoute('/expensive/')()
 
 // Create/Update Routes
+
+const DeferredDataRoute = DeferredDataImport.update({
+  path: '/deferred-data',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const DashboardRoute = DashboardImport.update({
   path: '/dashboard',
@@ -180,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
+    '/deferred-data': {
+      id: '/deferred-data'
+      path: '/deferred-data'
+      fullPath: '/deferred-data'
+      preLoaderRoute: typeof DeferredDataImport
+      parentRoute: typeof rootRoute
+    }
     '/(stocks)/apple-inc': {
       id: '/apple-inc'
       path: '/apple-inc'
@@ -302,6 +315,7 @@ export const routeTree = rootRoute.addChildren({
     }),
     DashboardIndexRoute,
   }),
+  DeferredDataRoute,
   stocksAppleIncRoute,
   stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute,
@@ -322,6 +336,7 @@ export const routeTree = rootRoute.addChildren({
         "/about-us",
         "/contact-us",
         "/dashboard",
+        "/deferred-data",
         "/apple-inc",
         "/berkshire-hathaway-inc",
         "/nike-inc",
@@ -352,6 +367,9 @@ export const routeTree = rootRoute.addChildren({
         "/dashboard/users",
         "/dashboard/"
       ]
+    },
+    "/deferred-data": {
+      "filePath": "deferred-data.tsx"
     },
     "/apple-inc": {
       "filePath": "(stocks)/apple-inc.tsx"
