@@ -8,7 +8,7 @@ import useAuth from './hooks/useAuth';
 import { routeTree } from './routeTree.gen';
 import type { IPublicClientApplication } from '@azure/msal-browser';
 
-export const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 const router = createRouter({
   context: {

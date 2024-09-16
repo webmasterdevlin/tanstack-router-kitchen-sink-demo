@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { queryClient } from '../App.tsx';
 import { userQueryOptions } from '../utils/queryOptions.ts';
 
 export const Route = createFileRoute('/dashboard/users/user')({
@@ -14,7 +13,7 @@ export const Route = createFileRoute('/dashboard/users/user')({
     return { userId };
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
-  loader: ({ deps: { userId } }) => {
+  loader: ({ deps: { userId }, context: { queryClient } }) => {
     console.log(userId);
     return queryClient.ensureQueryData(userQueryOptions(userId));
   },

@@ -1,5 +1,4 @@
-import { queryOptions, useMutation } from '@tanstack/react-query';
-import { queryClient } from '../App';
+import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchInvoiceById, fetchInvoices, fetchUserById, fetchUsers, patchInvoice, postInvoice } from './mockTodos';
 
 export const invoicesQueryOptions = () => {
@@ -39,6 +38,8 @@ export const userQueryOptions = (userId: number) => {
 };
 
 export const useCreateInvoiceMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     // mutationKey: ['invoices', 'create'],
     mutationFn: postInvoice,
@@ -49,6 +50,8 @@ export const useCreateInvoiceMutation = () => {
 };
 
 export const useUpdateInvoiceMutation = (invoiceId: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     gcTime: 1000 * 10,
     mutationFn: patchInvoice,

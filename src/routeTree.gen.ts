@@ -296,32 +296,227 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  LayoutRoute: LayoutRoute.addChildren({
-    LayoutLayoutARoute,
-    LayoutLayoutBRoute,
-  }),
-  AboutUsRoute,
-  ContactUsRoute,
-  DashboardRoute: DashboardRoute.addChildren({
-    DashboardInvoicesRoute: DashboardInvoicesRoute.addChildren({
-      DashboardInvoicesInvoiceIdRoute,
-      DashboardInvoicesIndexRoute,
-    }),
-    DashboardUsersRoute: DashboardUsersRoute.addChildren({
-      DashboardUsersUserRoute,
-      DashboardUsersIndexRoute,
-    }),
-    DashboardIndexRoute,
-  }),
-  DeferredDataRoute,
-  stocksAppleIncRoute,
-  stocksBerkshireHathawayIncRoute,
-  stocksNikeIncRoute,
-  stocksStarbucksCorporationRoute,
-  ExpensiveIndexLazyRoute,
-})
+interface LayoutRouteChildren {
+  LayoutLayoutARoute: typeof LayoutLayoutARoute
+  LayoutLayoutBRoute: typeof LayoutLayoutBRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutLayoutARoute: LayoutLayoutARoute,
+  LayoutLayoutBRoute: LayoutLayoutBRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
+interface DashboardInvoicesRouteChildren {
+  DashboardInvoicesInvoiceIdRoute: typeof DashboardInvoicesInvoiceIdRoute
+  DashboardInvoicesIndexRoute: typeof DashboardInvoicesIndexRoute
+}
+
+const DashboardInvoicesRouteChildren: DashboardInvoicesRouteChildren = {
+  DashboardInvoicesInvoiceIdRoute: DashboardInvoicesInvoiceIdRoute,
+  DashboardInvoicesIndexRoute: DashboardInvoicesIndexRoute,
+}
+
+const DashboardInvoicesRouteWithChildren =
+  DashboardInvoicesRoute._addFileChildren(DashboardInvoicesRouteChildren)
+
+interface DashboardUsersRouteChildren {
+  DashboardUsersUserRoute: typeof DashboardUsersUserRoute
+  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
+}
+
+const DashboardUsersRouteChildren: DashboardUsersRouteChildren = {
+  DashboardUsersUserRoute: DashboardUsersUserRoute,
+  DashboardUsersIndexRoute: DashboardUsersIndexRoute,
+}
+
+const DashboardUsersRouteWithChildren = DashboardUsersRoute._addFileChildren(
+  DashboardUsersRouteChildren,
+)
+
+interface DashboardRouteChildren {
+  DashboardInvoicesRoute: typeof DashboardInvoicesRouteWithChildren
+  DashboardUsersRoute: typeof DashboardUsersRouteWithChildren
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardInvoicesRoute: DashboardInvoicesRouteWithChildren,
+  DashboardUsersRoute: DashboardUsersRouteWithChildren,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/deferred-data': typeof DeferredDataRoute
+  '/apple-inc': typeof stocksAppleIncRoute
+  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/nike-inc': typeof stocksNikeIncRoute
+  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/layout-a': typeof LayoutLayoutARoute
+  '/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
+  '/dashboard/users': typeof DashboardUsersRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/deferred-data': typeof DeferredDataRoute
+  '/apple-inc': typeof stocksAppleIncRoute
+  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/nike-inc': typeof stocksNikeIncRoute
+  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/layout-a': typeof LayoutLayoutARoute
+  '/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users': typeof DashboardUsersIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/deferred-data': typeof DeferredDataRoute
+  '/apple-inc': typeof stocksAppleIncRoute
+  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/nike-inc': typeof stocksNikeIncRoute
+  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/_layout/layout-a': typeof LayoutLayoutARoute
+  '/_layout/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
+  '/dashboard/users': typeof DashboardUsersRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/expensive/': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | ''
+    | '/about-us'
+    | '/contact-us'
+    | '/dashboard'
+    | '/deferred-data'
+    | '/apple-inc'
+    | '/berkshire-hathaway-inc'
+    | '/nike-inc'
+    | '/starbucks-corporation'
+    | '/layout-a'
+    | '/layout-b'
+    | '/dashboard/invoices'
+    | '/dashboard/users'
+    | '/dashboard/'
+    | '/expensive'
+    | '/dashboard/invoices/$invoiceId'
+    | '/dashboard/users/user'
+    | '/dashboard/invoices/'
+    | '/dashboard/users/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | ''
+    | '/about-us'
+    | '/contact-us'
+    | '/deferred-data'
+    | '/apple-inc'
+    | '/berkshire-hathaway-inc'
+    | '/nike-inc'
+    | '/starbucks-corporation'
+    | '/layout-a'
+    | '/layout-b'
+    | '/dashboard'
+    | '/expensive'
+    | '/dashboard/invoices/$invoiceId'
+    | '/dashboard/users/user'
+    | '/dashboard/invoices'
+    | '/dashboard/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/_layout'
+    | '/about-us'
+    | '/contact-us'
+    | '/dashboard'
+    | '/deferred-data'
+    | '/apple-inc'
+    | '/berkshire-hathaway-inc'
+    | '/nike-inc'
+    | '/starbucks-corporation'
+    | '/_layout/layout-a'
+    | '/_layout/layout-b'
+    | '/dashboard/invoices'
+    | '/dashboard/users'
+    | '/dashboard/'
+    | '/expensive/'
+    | '/dashboard/invoices/$invoiceId'
+    | '/dashboard/users/user'
+    | '/dashboard/invoices/'
+    | '/dashboard/users/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
+  AboutUsRoute: typeof AboutUsRoute
+  ContactUsRoute: typeof ContactUsRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  DeferredDataRoute: typeof DeferredDataRoute
+  stocksAppleIncRoute: typeof stocksAppleIncRoute
+  stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute
+  stocksNikeIncRoute: typeof stocksNikeIncRoute
+  stocksStarbucksCorporationRoute: typeof stocksStarbucksCorporationRoute
+  ExpensiveIndexLazyRoute: typeof ExpensiveIndexLazyRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  LayoutRoute: LayoutRouteWithChildren,
+  AboutUsRoute: AboutUsRoute,
+  ContactUsRoute: ContactUsRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  DeferredDataRoute: DeferredDataRoute,
+  stocksAppleIncRoute: stocksAppleIncRoute,
+  stocksBerkshireHathawayIncRoute: stocksBerkshireHathawayIncRoute,
+  stocksNikeIncRoute: stocksNikeIncRoute,
+  stocksStarbucksCorporationRoute: stocksStarbucksCorporationRoute,
+  ExpensiveIndexLazyRoute: ExpensiveIndexLazyRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 

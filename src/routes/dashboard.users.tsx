@@ -2,7 +2,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
 import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
-import { queryClient } from '../App.tsx';
 import { Spinner } from '../components/Spinner';
 import { usersQueryOptions } from '../utils/queryOptions.ts';
 
@@ -13,7 +12,7 @@ export const Route = createFileRoute('/dashboard/users')({
   preSearchFilters: [
     // Persist (or set as default) the usersView search param
     // while navigating within or to this route (or it's children!)
-    search => {
+    (search) => {
       return {
         ...search,
         usersView: {
@@ -38,7 +37,7 @@ export const Route = createFileRoute('/dashboard/users')({
     };
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
-  loader: ({ deps }) => {
+  loader: ({ deps, context: { queryClient } }) => {
     return queryClient.ensureQueryData(usersQueryOptions(deps));
   },
 });
