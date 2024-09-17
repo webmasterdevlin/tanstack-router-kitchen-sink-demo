@@ -13,7 +13,7 @@ function IndexComponent() {
       <div className={'text-lg'}>Welcome Home!</div>
       <hr className={'my-2'} />
       <Link
-        to="/src/routes/mini-dashboard/invoices"
+        to="/dashboard/invoices"
         params={{
           invoiceId: 3,
         }}
