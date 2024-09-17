@@ -1,6 +1,9 @@
 import { Await, createFileRoute, defer, useAwaited } from '@tanstack/react-router';
 import axios from 'axios';
 
+/**
+ * The `defer` function wraps a promise with a deferred state object that can be used to inspect the promise's state. This deferred promise can then be passed to the `useAwaited` hook or the `<Await>` component for suspending until the promise is resolved or rejected.
+ */
 export const Route = createFileRoute('/deferred-data')({
     component: DeferComponent,
     loader: async () => {
@@ -13,6 +16,12 @@ export const Route = createFileRoute('/deferred-data')({
         return { deferredComments, deferredPhotos, users };
     },
 });
+
+type LoaderDataType = {
+    users: { data: any[] };
+    deferredPhotos: Promise<{ data: any[] }>;
+    deferredComments: Promise<{ data: any[] }>;
+};
 
 function DeferComponent() {
     const { deferredComments, deferredPhotos, users } = Route.useLoaderData<LoaderDataType>();
@@ -34,10 +43,4 @@ function DeferComponent() {
             </Await>
         </div>
     );
-}
-
-interface LoaderDataType {
-    users: { data: any[] };
-    deferredPhotos: Promise<{ data: any[] }>;
-    deferredComments: Promise<{ data: any[] }>;
 }
