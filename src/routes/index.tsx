@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
+/**
+ * The `createFileRoute` function is a factory that can be used to create a file-based route instance. This route instance can then be used to automatically generate a route tree with the `tsr generate` and `tsr watch` commands.
+ */
 export const Route = createFileRoute('/')({
   component: IndexComponent,
 });
@@ -10,7 +13,7 @@ function IndexComponent() {
       <div className={'text-lg'}>Welcome Home!</div>
       <hr className={'my-2'} />
       <Link
-        to="/dashboard/invoices"
+        to="/src/routes/mini-dashboard/invoices"
         params={{
           invoiceId: 3,
         }}

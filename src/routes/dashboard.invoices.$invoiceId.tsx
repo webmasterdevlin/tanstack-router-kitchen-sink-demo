@@ -5,12 +5,15 @@ import { InvoiceFields } from '../components/InvoiceFields';
 import { useMutation } from '../hooks/useMutation';
 import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
 
+/**
+ * `Flat Routes` gives you the ability to use `.`s to denote route nesting levels.
+ */
 export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
   params: {
     parse: params => {
       return {
-        invoiceId: z.number().int().parse(Number(params.invoiceId))
+        invoiceId: z.number().int().parse(Number(params.invoiceId)),
       };
     },
     stringify: ({ invoiceId }) => {

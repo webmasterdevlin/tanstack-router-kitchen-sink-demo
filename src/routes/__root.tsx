@@ -5,7 +5,8 @@ import { Spinner } from '../components/Spinner';
 import useAuth from '../hooks/useAuth';
 import type { Auth } from '../models/auth';
 
-/* Show a global spinner when the router is transitioning */
+/** Show a global spinner when the router is transitioning
+ * */
 function RouterSpinner() {
   const isLoading = useRouterState({
     select: s => {
@@ -19,6 +20,9 @@ type RouterContextType = {
   auth: Auth;
 };
 
+/**
+ * The `createRootRouteWithContext` function is a helper function that can be used to create a root route instance that requires a context type to be fulfilled when the router is created.
+ */
 export const Route = createRootRouteWithContext<RouterContextType>()({
   component: RootComponent,
   notFoundComponent: () => {
