@@ -40,7 +40,6 @@ function MainNav() {
             className={'block px-3 py-2 capitalize text-indigo-700'}
             // Make "active" links bold
             activeProps={{ className: 'font-bold' }}
-            params={null}
           >
             {label}
           </Link>
