@@ -1,17 +1,16 @@
 import './index.css';
 
 import { PublicClientApplication } from '@azure/msal-browser';
+import { MsalProvider } from '@azure/msal-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { msalConfig } from './auth/config';
-import { MsalProvider } from '@azure/msal-react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
 import { Spinner } from './components/Spinner';
 import useAuth from './hooks/useAuth';
 import { routeTree } from './routeTree.gen';
-
 
 const queryClient = new QueryClient();
 
