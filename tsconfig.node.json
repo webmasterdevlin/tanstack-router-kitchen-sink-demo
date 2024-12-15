@@ -5,13 +5,11 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-     /* shadcn */
-     "baseUrl": ".",
-     "paths": {
-       "@/*": [
-         "./src/*"
-       ]
-     }
+    /* shadcn */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["app/*"]
+    }
   },
   "include": ["vite.config.ts"]
 }
