@@ -11,6 +11,9 @@ export function createRouter() {
     defaultErrorComponent: ({ error }) => {
       return <ErrorComponent error={error} />;
     },
+    defaultNotFoundComponent: () => {
+      return <h1>Not Found</h1>;
+    },
     defaultPendingComponent: () => {
       return (
         <div className={'p-2 text-2xl'}>
