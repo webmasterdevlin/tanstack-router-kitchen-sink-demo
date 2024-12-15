@@ -2,7 +2,8 @@
 
 import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
-import { lazy, Suspense, type ReactNode } from 'react';
+import { lazy, type ReactNode } from 'react';
+import MainNav from '@/components/MainNav';
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -45,10 +46,21 @@ const TanStackRouterDevtools =
 function RootComponent() {
     return (
         <RootDocument>
-            <Outlet />
-            <Suspense>
-                <TanStackRouterDevtools />
-            </Suspense>
+            <div className={'flex min-h-screen flex-col'}>
+                <div className={'flex items-center gap-2 border-b'}>
+                    <div className="flex w-full items-center justify-between">
+                        <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+                    </div>
+                </div>
+                <div className={'flex flex-1'}>
+                    <MainNav />
+                    <div className={'flex-1 border-l border-gray-200'}>
+                        {/* Render our first route match */}
+                        <Outlet />
+                    </div>
+                </div>
+            </div>
+            <TanStackRouterDevtools position="bottom-right" />
         </RootDocument>
     );
 }

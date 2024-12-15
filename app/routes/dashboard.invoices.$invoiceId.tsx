@@ -46,6 +46,7 @@ function InvoiceComponent() {
       return router.invalidate();
     },
   });
+  
   const [notes, setNotes] = useState(search.notes ?? '');
 
   useEffect(() => {
