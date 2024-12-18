@@ -1,8 +1,8 @@
-import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
 import React, { useState, useEffect } from 'react';
+import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 import { Spinner } from '@/components/Spinner';
-import { fetchUsers } from '@/utils/mockTodos';
+import { fetchUsersFn } from '@/functions/todos';
 
 type UsersViewSortBy = 'name' | 'id' | 'email';
 
@@ -37,7 +37,7 @@ export const Route = createFileRoute('/dashboard/users')({
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps }) => {
-    return fetchUsers(deps);
+    return fetchUsersFn({ data: deps });
   },
 });
 

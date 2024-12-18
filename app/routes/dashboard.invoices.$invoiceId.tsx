@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
-import { z } from 'zod';
 import { InvoiceFields } from '@/components/InvoiceFields';
 import { fetchInvoiceById } from '@/utils/mockTodos';
-import { patchInvoiceFn } from '@/functions/todos';
+import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/todos';
 import { useServerFn } from '@tanstack/start';
+import { z } from 'zod';
 
 /**
  * `Flat Routes` gives you the ability to use `.`s to denote route nesting levels.
@@ -31,7 +31,7 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceById(Number(invoiceId));
+    return fetchInvoiceByIdFn({ data: Number(invoiceId) });
   },
 });
 

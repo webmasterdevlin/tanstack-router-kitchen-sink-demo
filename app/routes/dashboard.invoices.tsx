@@ -1,11 +1,11 @@
 import { createFileRoute, Link, MatchRoute, Outlet } from '@tanstack/react-router';
 import { Spinner } from '@/components/Spinner';
-import { fetchInvoices } from '@/utils/mockTodos';
+import { fetchInvoicesFn } from '@/functions/todos';
 
 export const Route = createFileRoute('/dashboard/invoices')({
   component: InvoicesComponent,
   loader: () => {
-    return fetchInvoices();
+    return fetchInvoicesFn();
   },
 });
 

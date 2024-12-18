@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { fetchInvoices } from '@/utils/mockTodos';
+import { fetchInvoicesFn } from '@/functions/todos';
 
 export const Route = createFileRoute('/dashboard/')({
   component: DashboardIndexComponent,
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/dashboard/')({
    * https://developer.mozilla.org/docs/Learn/Performance/Web_Performance_Basics
    */
   loader: () => {
-    return fetchInvoices();
+    return fetchInvoicesFn();
   },
 });
 

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { fetchUserByIdFn } from '@/functions/todos';
 import { z } from 'zod';
-import { fetchUserById } from '@/utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/users/user')({
   component: UserComponent,
@@ -14,7 +14,7 @@ export const Route = createFileRoute('/dashboard/users/user')({
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps: { userId } }) => {
     console.log(userId);
-    return fetchUserById(userId);
+    return fetchUserByIdFn({ data: userId });
   },
 });
 
