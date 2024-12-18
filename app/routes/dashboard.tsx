@@ -1,12 +1,20 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import DashboardNav from '@/components/DashboardNav';
+import useAuth from '../hooks/useAuth';
+import Login from './-ignored-pages/Login';
+
 
 export const Route = createFileRoute('/dashboard')({
   beforeLoad: ({ context }) => {
-    console.log('beforeLoad', context);
+
   },
 
   component: () => {
+    const auth = useAuth();
+    if (auth.status !== 'loggedIn') {
+      return <Login />;
+    }
+
     return (
       <>
         <div className="flex items-center border-b">
