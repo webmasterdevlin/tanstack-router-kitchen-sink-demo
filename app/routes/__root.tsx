@@ -4,6 +4,9 @@ import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-rout
 import { Meta, Scripts } from '@tanstack/start';
 import { lazy, type ReactNode } from 'react';
 import MainNav from '@/components/MainNav';
+import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate } from '@azure/msal-react';
+import { msalConfig } from '@/auth/config';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -44,24 +47,34 @@ const TanStackRouterDevtools =
         );
 
 function RootComponent() {
+    const msalInstance = new PublicClientApplication(msalConfig);
+
     return (
-        <RootDocument>
-            <div className={'flex min-h-screen flex-col'}>
-                <div className={'flex items-center gap-2 border-b'}>
-                    <div className="flex w-full items-center justify-between">
-                        <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+        <MsalProvider instance={msalInstance}>
+            <RootDocument>
+                <div className={'flex min-h-screen flex-col'}>
+                    <div className={'flex items-center gap-2 border-b'}>
+                        <div className="flex w-full items-center justify-between">
+                            <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+                        </div>
                     </div>
-                </div>
-                <div className={'flex flex-1'}>
-                    <MainNav />
-                    <div className={'flex-1 border-l border-gray-200'}>
-                        {/* Render our first route match */}
-                        <Outlet />
+                    <div className={'flex flex-1'}>
+                        <MainNav />
+                        <div className={'flex-1 border-l border-gray-200'}>
+                            {/* Render our first route match */}
+                            <Outlet />
+                        </div>
                     </div>
+                    <UnauthenticatedTemplate>
+                        <h1 className='text-red-500'>Unauthenticated</h1>
+                    </UnauthenticatedTemplate>
+                    <AuthenticatedTemplate>
+                        <h1 className='text-red-500'>Authenticated</h1>
+                    </AuthenticatedTemplate>
                 </div>
-            </div>
-            <TanStackRouterDevtools position="bottom-right" />
-        </RootDocument>
+                <TanStackRouterDevtools position="bottom-right" />
+            </RootDocument>
+        </MsalProvider>
     );
 }
 
