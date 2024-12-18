@@ -11,24 +11,40 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Remove with sqlite
 }
 
-model Contact {
-  id        String   @id @default(uuid())
-  first     String?
-  last      String?
-  createdAt DateTime @default(now())
-  favorite  Boolean?
-  avatar    String?
-  twitter   String?
-  notes     String?
+model Invoice {
+  id     Int    @id @default(autoincrement())
+  title  String
+  body   String
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  name     String
-  username String
-  email    String
-  company  Company?
-  Invoice  Invoice[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  username  String
+  email     String
+  address   Address?
+  phone     String
+  website   String
+  company   Company?
+}
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  street   String
+  suite    String
+  city     String
+  zipcode  String
+  geo      Geo?
+  user     User?   @relation(fields: [userId], references: [id])
+  userId   Int?    @unique
+}
+
+model Geo {
+  id        Int    @id @default(autoincrement())
+  lat       String
+  lng       String
+  address   Address? @relation(fields: [addressId], references: [id])
+  addressId Int?     @unique
 }
 
 model Company {
@@ -36,13 +52,6 @@ model Company {
   name        String
   catchPhrase String
   bs          String
-  userId      Int    @unique
-  user        User   @relation(fields: [userId], references: [id])
-}
-
-model Invoice {
-  id     Int   @id @default(autoincrement())
-  amount Float
-  userId Int
-  user   User  @relation(fields: [userId], references: [id])
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      Int?    @unique
 }
