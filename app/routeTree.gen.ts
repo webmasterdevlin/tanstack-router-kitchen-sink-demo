@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as DeferredDataImport } from './routes/deferred-data'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as ContactUsImport } from './routes/contact-us'
 import { Route as AboutUsImport } from './routes/about-us'
@@ -32,12 +31,6 @@ import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user
 import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.invoices.$invoiceId'
 
 // Create/Update Routes
-
-const DeferredDataRoute = DeferredDataImport.update({
-  id: '/deferred-data',
-  path: '/deferred-data',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const DashboardRoute = DashboardImport.update({
   id: '/dashboard',
@@ -189,13 +182,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/deferred-data': {
-      id: '/deferred-data'
-      path: '/deferred-data'
-      fullPath: '/deferred-data'
-      preLoaderRoute: typeof DeferredDataImport
       parentRoute: typeof rootRoute
     }
     '/(stocks)/apple-inc': {
@@ -356,7 +342,6 @@ export interface FileRoutesByFullPath {
   '/about-us': typeof AboutUsRoute
   '/contact-us': typeof ContactUsRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/deferred-data': typeof DeferredDataRoute
   '/apple-inc': typeof stocksAppleIncRoute
   '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
   '/nike-inc': typeof stocksNikeIncRoute
@@ -377,7 +362,6 @@ export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/about-us': typeof AboutUsRoute
   '/contact-us': typeof ContactUsRoute
-  '/deferred-data': typeof DeferredDataRoute
   '/apple-inc': typeof stocksAppleIncRoute
   '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
   '/nike-inc': typeof stocksNikeIncRoute
@@ -398,7 +382,6 @@ export interface FileRoutesById {
   '/about-us': typeof AboutUsRoute
   '/contact-us': typeof ContactUsRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/deferred-data': typeof DeferredDataRoute
   '/(stocks)/apple-inc': typeof stocksAppleIncRoute
   '/(stocks)/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
   '/(stocks)/nike-inc': typeof stocksNikeIncRoute
@@ -422,7 +405,6 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/contact-us'
     | '/dashboard'
-    | '/deferred-data'
     | '/apple-inc'
     | '/berkshire-hathaway-inc'
     | '/nike-inc'
@@ -442,7 +424,6 @@ export interface FileRouteTypes {
     | ''
     | '/about-us'
     | '/contact-us'
-    | '/deferred-data'
     | '/apple-inc'
     | '/berkshire-hathaway-inc'
     | '/nike-inc'
@@ -461,7 +442,6 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/contact-us'
     | '/dashboard'
-    | '/deferred-data'
     | '/(stocks)/apple-inc'
     | '/(stocks)/berkshire-hathaway-inc'
     | '/(stocks)/nike-inc'
@@ -484,7 +464,6 @@ export interface RootRouteChildren {
   AboutUsRoute: typeof AboutUsRoute
   ContactUsRoute: typeof ContactUsRoute
   DashboardRoute: typeof DashboardRouteWithChildren
-  DeferredDataRoute: typeof DeferredDataRoute
   stocksAppleIncRoute: typeof stocksAppleIncRoute
   stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute
   stocksNikeIncRoute: typeof stocksNikeIncRoute
@@ -497,7 +476,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   ContactUsRoute: ContactUsRoute,
   DashboardRoute: DashboardRouteWithChildren,
-  DeferredDataRoute: DeferredDataRoute,
   stocksAppleIncRoute: stocksAppleIncRoute,
   stocksBerkshireHathawayIncRoute: stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute: stocksNikeIncRoute,
@@ -519,7 +497,6 @@ export const routeTree = rootRoute
         "/about-us",
         "/contact-us",
         "/dashboard",
-        "/deferred-data",
         "/(stocks)/apple-inc",
         "/(stocks)/berkshire-hathaway-inc",
         "/(stocks)/nike-inc",
@@ -549,9 +526,6 @@ export const routeTree = rootRoute
         "/dashboard/users",
         "/dashboard/"
       ]
-    },
-    "/deferred-data": {
-      "filePath": "deferred-data.tsx"
     },
     "/(stocks)/apple-inc": {
       "filePath": "(stocks)/apple-inc.tsx"
