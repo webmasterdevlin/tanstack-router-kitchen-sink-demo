@@ -10,21 +10,6 @@ const USERS = [
     email: 'alice@example.com',
     phone: '555-1001',
     website: 'www.alicesmith.com',
-    address: {
-      street: '123 Maple Street',
-      suite: 'Apt 1',
-      city: 'Wonderland',
-      zipcode: '12345',
-      geo: {
-        lat: '40.7128',
-        lng: '-74.0060',
-      },
-    },
-    company: {
-      name: 'Alice Co.',
-      catchPhrase: 'Innovating the future',
-      bs: 'integrate scalable models',
-    },
   },
   {
     id: 2,
@@ -33,21 +18,6 @@ const USERS = [
     email: 'bob@example.com',
     phone: '555-1002',
     website: 'www.bobjohnson.com',
-    address: {
-      street: '456 Oak Avenue',
-      suite: 'Suite 200',
-      city: 'Metropolis',
-      zipcode: '67890',
-      geo: {
-        lat: '34.0522',
-        lng: '-118.2437',
-      },
-    },
-    company: {
-      name: 'Bob Industries',
-      catchPhrase: 'Exceeding expectations',
-      bs: 'deliver robust solutions',
-    },
   },
   {
     id: 3,
@@ -56,21 +26,6 @@ const USERS = [
     email: 'carol@example.com',
     phone: '555-1003',
     website: 'www.carolwilliams.com',
-    address: {
-      street: '789 Pine Road',
-      suite: 'Suite 300',
-      city: 'Gotham',
-      zipcode: '13579',
-      geo: {
-        lat: '51.5074',
-        lng: '-0.1278',
-      },
-    },
-    company: {
-      name: 'Carol Corp.',
-      catchPhrase: 'Empowering innovation',
-      bs: 'streamline mission-critical tasks',
-    },
   },
   {
     id: 4,
@@ -79,21 +34,6 @@ const USERS = [
     email: 'david@example.com',
     phone: '555-1004',
     website: 'www.davidbrown.com',
-    address: {
-      street: '101 Elm Street',
-      suite: 'Apt 4B',
-      city: 'Star City',
-      zipcode: '24680',
-      geo: {
-        lat: '37.7749',
-        lng: '-122.4194',
-      },
-    },
-    company: {
-      name: 'David Enterprises',
-      catchPhrase: 'Building the future',
-      bs: 'enhance user experiences',
-    },
   },
   {
     id: 5,
@@ -102,21 +42,6 @@ const USERS = [
     email: 'eva@example.com',
     phone: '555-1005',
     website: 'www.evagreen.com',
-    address: {
-      street: '202 Birch Lane',
-      suite: 'Unit 5',
-      city: 'Coast City',
-      zipcode: '11223',
-      geo: {
-        lat: '48.8566',
-        lng: '2.3522',
-      },
-    },
-    company: {
-      name: 'Eva Solutions',
-      catchPhrase: 'Innovate to elevate',
-      bs: 'leverage next-gen technologies',
-    },
   },
 ];
 
