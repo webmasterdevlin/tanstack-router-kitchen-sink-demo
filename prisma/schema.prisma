@@ -2,13 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider          = "sqlite"
-    url               = env("DATABASE_URL") // Change to "file:./dev.db" with sqlite
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Remove with sqlite
+  provider          = "sqlite"
+  url               = env("DATABASE_URL") // Change to "file:./dev.db" with sqlite
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Remove with sqlite
 }
 
 model Contact {
@@ -20,4 +20,29 @@ model Contact {
   avatar    String?
   twitter   String?
   notes     String?
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  username String
+  email    String
+  company  Company?
+  Invoice  Invoice[]
+}
+
+model Company {
+  id          Int    @id @default(autoincrement())
+  name        String
+  catchPhrase String
+  bs          String
+  userId      Int    @unique
+  user        User   @relation(fields: [userId], references: [id])
+}
+
+model Invoice {
+  id     Int   @id @default(autoincrement())
+  amount Float
+  userId Int
+  user   User  @relation(fields: [userId], references: [id])
 }

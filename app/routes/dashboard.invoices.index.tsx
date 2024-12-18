@@ -1,8 +1,10 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { InvoiceFields } from '@/components/InvoiceFields';
 import { Spinner } from '@/components/Spinner';
-import { useMutation } from '@/hooks/useMutation';
-import { postInvoice, type Invoice } from '@/utils/mockTodos';
+import { type Invoice } from '@/utils/mockTodos';
+import { useServerFn } from '@tanstack/start';
+import { postInvoiceFn } from '@/functions/todos';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/dashboard/invoices/')({
   component: InvoicesIndexComponent,
@@ -11,26 +13,40 @@ export const Route = createFileRoute('/dashboard/invoices/')({
 function InvoicesIndexComponent() {
   const router = useRouter();
 
-  const { mutate, status } = useMutation({
-    fn: postInvoice,
-    onSuccess: () => {
-      return router.invalidate();
-    },
-  });
+  // const { mutate, status } = useMutation({
+  //   fn: postInvoice,
+  //   onSuccess: () => {
+  //     return router.invalidate();
+  //   },
+  // });
+
+  const postInvoice = useServerFn(postInvoiceFn);
+  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
+
+  const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const formData = new FormData(event.target as HTMLFormElement);
+    setStatus('pending');
+    try {
+      await postInvoice({
+        data: {
+          body: formData.get('body') as string,
+          title: formData.get('title') as string,
+        },
+      });
+      router.invalidate();
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
+  }
 
   return (
     <>
       <div className="p-2">
         <form
-          onSubmit={event => {
-            event.preventDefault();
-            event.stopPropagation();
-            const formData = new FormData(event.target as HTMLFormElement);
-            mutate({
-              body: formData.get('body') as string,
-              title: formData.get('title') as string,
-            });
-          }}
+          onSubmit={handleOnSubmit}
           className="space-y-2"
         >
           <div>Create a new Invoice:</div>

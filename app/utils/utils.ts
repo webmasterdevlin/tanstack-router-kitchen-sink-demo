@@ -1,5 +1,5 @@
 export async function loaderDelayFn<T>(fn: (...args: any[]) => Promise<T> | T) {
-  const delay = Number(sessionStorage.getItem('loaderDelay') ?? 0);
+  const delay = Number(3000);
   const delayPromise = new Promise(r => {
     return setTimeout(r, delay);
   });
@@ -11,7 +11,7 @@ export async function loaderDelayFn<T>(fn: (...args: any[]) => Promise<T> | T) {
 }
 
 export async function actionDelayFn<T>(fn: (...args: any[]) => Promise<T> | T) {
-  const delay = Number(sessionStorage.getItem('actionDelay') ?? 0);
+  const delay = Number(3000);
   await new Promise(r => {
     return setTimeout(r, delay);
   });

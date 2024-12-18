@@ -1,9 +1,10 @@
-import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
+import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
 import { z } from 'zod';
 import { InvoiceFields } from '@/components/InvoiceFields';
-import { useMutation } from '@/hooks/useMutation';
-import { fetchInvoiceById, patchInvoice } from '@/utils/mockTodos';
+import { fetchInvoiceById } from '@/utils/mockTodos';
+import { patchInvoiceFn } from '@/functions/todos';
+import { useServerFn } from '@tanstack/start';
 
 /**
  * `Flat Routes` gives you the ability to use `.`s to denote route nesting levels.
@@ -40,12 +41,34 @@ function InvoiceComponent() {
   const router = useRouter();
   const navigate = useNavigate({ from: Route.fullPath });
 
-  const { mutate, status, variables, submittedAt } = useMutation({
-    fn: patchInvoice,
-    onSuccess: () => {
-      return router.invalidate();
-    },
-  });
+  const patchInvoice = useServerFn(patchInvoiceFn);
+
+  const [submittedAt, setSubmittedAt] = useState<number | undefined>();
+  const [variables, setVariables] = useState<any | undefined>();
+  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
+
+  const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const formData = new FormData(event.target as HTMLFormElement);
+    setStatus('pending');
+    setSubmittedAt(Date.now());
+    const payload = {
+      body: formData.get('body') as string,
+      id: invoice.id,
+      title: formData.get('title') as string,
+    };
+    setVariables(payload);
+    try {
+      await patchInvoice({
+        data: payload,
+      });
+      setStatus('success');
+      router.invalidate();
+    } catch (err: any) {
+      setStatus('error');
+    }
+  }
 
   const [notes, setNotes] = useState(search.notes ?? '');
 
@@ -65,16 +88,7 @@ function InvoiceComponent() {
   return (
     <form
       key={invoice.id}
-      onSubmit={event => {
-        event.preventDefault();
-        event.stopPropagation();
-        const formData = new FormData(event.target as HTMLFormElement);
-        mutate({
-          body: formData.get('body') as string,
-          id: invoice.id,
-          title: formData.get('title') as string,
-        });
-      }}
+      onSubmit={handleOnSubmit}
       className="space-y-2 p-2"
     >
       <InvoiceFields invoice={invoice} disabled={status === 'pending'} />
