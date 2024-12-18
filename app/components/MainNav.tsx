@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { root } from '../utils/routePaths';
+import { root } from '@/utils/routePaths';
 
 function MainNav() {
   return (

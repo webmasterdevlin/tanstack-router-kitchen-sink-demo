@@ -1,8 +1,8 @@
 import { createFileRoute, Link, MatchRoute, Outlet, useNavigate } from '@tanstack/react-router';
 import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
-import { Spinner } from '../components/Spinner';
-import { fetchUsers } from '../utils/mockTodos';
+import { Spinner } from '@/components/Spinner';
+import { fetchUsers } from '@/utils/mockTodos';
 
 type UsersViewSortBy = 'name' | 'id' | 'email';
 

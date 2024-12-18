@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
-import { EndPoints } from '../http-client/api-config';
-import { getAxios } from '../http-client/generic-api-calls';
+import { EndPoints } from '@/http-client/api-config';
+import { getAxios } from '@/http-client/generic-api-calls';
 import { actionDelayFn, loaderDelayFn, shuffle } from './utils';
 
 type PickAsRequired<TValue, TKey extends keyof TValue> = Omit<TValue, TKey> & Required<Pick<TValue, TKey>>;

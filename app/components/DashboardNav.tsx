@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { dashboard } from '../utils/routePaths';
+import { dashboard } from '@/utils/routePaths';
 
 function DashboardNav() {
   return (

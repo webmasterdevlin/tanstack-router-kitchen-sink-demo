@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { fetchInvoices } from '../utils/mockTodos';
+import { fetchInvoices } from '@/utils/mockTodos';
 
 export const Route = createFileRoute('/dashboard/')({
   component: DashboardIndexComponent,

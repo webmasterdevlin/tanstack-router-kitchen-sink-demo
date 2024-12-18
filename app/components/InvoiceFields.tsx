@@ -1,4 +1,4 @@
-import type { Invoice } from '../utils/mockTodos';
+import type { Invoice } from '@/utils/mockTodos';
 
 export function InvoiceFields({ invoice, disabled }: { invoice: Invoice; disabled?: boolean }) {
   return (

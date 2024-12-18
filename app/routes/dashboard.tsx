@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
-import DashboardNav from '../components/DashboardNav';
+import DashboardNav from '@/components/DashboardNav';
 
 export const Route = createFileRoute('/dashboard')({
   beforeLoad: ({ context }) => {

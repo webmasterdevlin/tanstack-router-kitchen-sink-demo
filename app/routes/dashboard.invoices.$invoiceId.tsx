@@ -1,9 +1,9 @@
 import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { z } from 'zod';
-import { InvoiceFields } from '../components/InvoiceFields';
-import { useMutation } from '../hooks/useMutation';
-import { fetchInvoiceById, patchInvoice } from '../utils/mockTodos';
+import { InvoiceFields } from '@/components/InvoiceFields';
+import { useMutation } from '@/hooks/useMutation';
+import { fetchInvoiceById, patchInvoice } from '@/utils/mockTodos';
 
 /**
  * `Flat Routes` gives you the ability to use `.`s to denote route nesting levels.
@@ -46,7 +46,7 @@ function InvoiceComponent() {
       return router.invalidate();
     },
   });
-  
+
   const [notes, setNotes] = useState(search.notes ?? '');
 
   useEffect(() => {
