@@ -1,12 +1,11 @@
-// app/routes/__root.tsx
-
+import { lazy, type ReactNode } from 'react';
 import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
-import { lazy, type ReactNode } from 'react';
-import MainNav from '@/components/MainNav';
-import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate } from '@azure/msal-react';
-import { msalConfig } from '@/auth/config';
+import { MsalProvider } from '@azure/msal-react';
 import { PublicClientApplication } from '@azure/msal-browser';
+import MainNav from '@/components/MainNav';
+import { msalConfig } from '@/auth/config';
+import useAuth from '@/hooks/useAuth';
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -46,6 +45,13 @@ const TanStackRouterDevtools =
         },
         );
 
+
+const AuthenticatedUser = () => {
+    const auth = useAuth();
+
+    return <pre className="text-indigo-500">{auth?.username}</pre>
+}
+
 function RootComponent() {
     const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -56,6 +62,7 @@ function RootComponent() {
                     <div className={'flex items-center gap-2 border-b'}>
                         <div className="flex w-full items-center justify-between">
                             <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+                            <AuthenticatedUser />
                         </div>
                     </div>
                     <div className={'flex flex-1'}>
@@ -65,14 +72,8 @@ function RootComponent() {
                             <Outlet />
                         </div>
                     </div>
-                    <UnauthenticatedTemplate>
-                        <h1 className='text-red-500'>Unauthenticated</h1>
-                    </UnauthenticatedTemplate>
-                    <AuthenticatedTemplate>
-                        <h1 className='text-red-500'>Authenticated</h1>
-                    </AuthenticatedTemplate>
                 </div>
-                <TanStackRouterDevtools position="bottom-right" />
+                <TanStackRouterDevtools position="bottom-left" />
             </RootDocument>
         </MsalProvider>
     );
