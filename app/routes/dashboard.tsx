@@ -8,7 +8,6 @@ export const Route = createFileRoute('/dashboard')({
   beforeLoad: ({ context }) => {
 
   },
-
   component: () => {
     const auth = useAuth();
     if (auth.status !== 'loggedIn') {

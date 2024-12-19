@@ -22,7 +22,7 @@ function DashboardIndexComponent() {
   return (
     <div className="p-2">
       <div className="p-2">
-        Welcome to the dashboard! You have <strong>{invoices.length} total invoices</strong>.
+        Welcome to the dashboard! You have <strong>{invoices?.length} total invoices</strong>.
       </div>
     </div>
   );
