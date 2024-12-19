@@ -8,413 +8,445 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as DashboardImport } from './routes/dashboard';
-import { Route as ContactUsImport } from './routes/contact-us';
-import { Route as AboutUsImport } from './routes/about-us';
-import { Route as LayoutImport } from './routes/_layout';
-import { Route as IndexImport } from './routes/index';
-import { Route as DashboardIndexImport } from './routes/dashboard.index';
-import { Route as DashboardUsersImport } from './routes/dashboard.users';
-import { Route as DashboardInvoicesImport } from './routes/dashboard.invoices';
-import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b';
-import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a';
-import { Route as stocksStarbucksCorporationImport } from './routes/(stocks)/starbucks-corporation';
-import { Route as stocksNikeIncImport } from './routes/(stocks)/nike-inc';
-import { Route as stocksBerkshireHathawayIncImport } from './routes/(stocks)/berkshire-hathaway-inc';
-import { Route as stocksAppleIncImport } from './routes/(stocks)/apple-inc';
-import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.index';
-import { Route as DashboardInvoicesIndexImport } from './routes/dashboard.invoices.index';
-import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user';
-import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.invoices.$invoiceId';
+import { Route as rootRoute } from './routes/__root'
+import { Route as DeferredDataImport } from './routes/deferred-data'
+import { Route as DashboardImport } from './routes/dashboard'
+import { Route as ContactUsImport } from './routes/contact-us'
+import { Route as AboutUsImport } from './routes/about-us'
+import { Route as LayoutImport } from './routes/_layout'
+import { Route as IndexImport } from './routes/index'
+import { Route as DashboardIndexImport } from './routes/dashboard.index'
+import { Route as DashboardUsersImport } from './routes/dashboard.users'
+import { Route as DashboardInvoicesImport } from './routes/dashboard.invoices'
+import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b'
+import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a'
+import { Route as stocksStarbucksCorporationImport } from './routes/(stocks)/starbucks-corporation'
+import { Route as stocksNikeIncImport } from './routes/(stocks)/nike-inc'
+import { Route as stocksBerkshireHathawayIncImport } from './routes/(stocks)/berkshire-hathaway-inc'
+import { Route as stocksAppleIncImport } from './routes/(stocks)/apple-inc'
+import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.index'
+import { Route as DashboardInvoicesIndexImport } from './routes/dashboard.invoices.index'
+import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user'
+import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.invoices.$invoiceId'
 
 // Create Virtual Routes
 
-const ExpensiveIndexLazyImport = createFileRoute('/expensive/')();
+const ExpensiveIndexLazyImport = createFileRoute('/expensive/')()
 
 // Create/Update Routes
+
+const DeferredDataRoute = DeferredDataImport.update({
+  id: '/deferred-data',
+  path: '/deferred-data',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const DashboardRoute = DashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ContactUsRoute = ContactUsImport.update({
   id: '/contact-us',
   path: '/contact-us',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AboutUsRoute = AboutUsImport.update({
   id: '/about-us',
   path: '/about-us',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ExpensiveIndexLazyRoute = ExpensiveIndexLazyImport.update({
   id: '/expensive/',
   path: '/expensive/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/expensive/index.lazy').then(d => d.Route));
+} as any).lazy(() =>
+  import('./routes/expensive/index.lazy').then((d) => d.Route),
+)
 
 const DashboardIndexRoute = DashboardIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardRoute,
-} as any);
+} as any)
 
 const DashboardUsersRoute = DashboardUsersImport.update({
   id: '/users',
   path: '/users',
   getParentRoute: () => DashboardRoute,
-} as any);
+} as any)
 
 const DashboardInvoicesRoute = DashboardInvoicesImport.update({
   id: '/invoices',
   path: '/invoices',
   getParentRoute: () => DashboardRoute,
-} as any);
+} as any)
 
 const LayoutLayoutBRoute = LayoutLayoutBImport.update({
   id: '/layout-b',
   path: '/layout-b',
   getParentRoute: () => LayoutRoute,
-} as any);
+} as any)
 
 const LayoutLayoutARoute = LayoutLayoutAImport.update({
   id: '/layout-a',
   path: '/layout-a',
   getParentRoute: () => LayoutRoute,
-} as any);
+} as any)
 
-const stocksStarbucksCorporationRoute = stocksStarbucksCorporationImport.update({
-  id: '/(stocks)/starbucks-corporation',
-  path: '/starbucks-corporation',
-  getParentRoute: () => rootRoute,
-} as any);
+const stocksStarbucksCorporationRoute = stocksStarbucksCorporationImport.update(
+  {
+    id: '/(stocks)/starbucks-corporation',
+    path: '/starbucks-corporation',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const stocksNikeIncRoute = stocksNikeIncImport.update({
   id: '/(stocks)/nike-inc',
   path: '/nike-inc',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
-const stocksBerkshireHathawayIncRoute = stocksBerkshireHathawayIncImport.update({
-  id: '/(stocks)/berkshire-hathaway-inc',
-  path: '/berkshire-hathaway-inc',
-  getParentRoute: () => rootRoute,
-} as any);
+const stocksBerkshireHathawayIncRoute = stocksBerkshireHathawayIncImport.update(
+  {
+    id: '/(stocks)/berkshire-hathaway-inc',
+    path: '/berkshire-hathaway-inc',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const stocksAppleIncRoute = stocksAppleIncImport.update({
   id: '/(stocks)/apple-inc',
   path: '/apple-inc',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const DashboardUsersIndexRoute = DashboardUsersIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardUsersRoute,
-} as any);
+} as any)
 
 const DashboardInvoicesIndexRoute = DashboardInvoicesIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardInvoicesRoute,
-} as any);
+} as any)
 
 const DashboardUsersUserRoute = DashboardUsersUserImport.update({
   id: '/user',
   path: '/user',
   getParentRoute: () => DashboardUsersRoute,
-} as any);
+} as any)
 
-const DashboardInvoicesInvoiceIdRoute = DashboardInvoicesInvoiceIdImport.update({
-  id: '/$invoiceId',
-  path: '/$invoiceId',
-  getParentRoute: () => DashboardInvoicesRoute,
-} as any);
+const DashboardInvoicesInvoiceIdRoute = DashboardInvoicesInvoiceIdImport.update(
+  {
+    id: '/$invoiceId',
+    path: '/$invoiceId',
+    getParentRoute: () => DashboardInvoicesRoute,
+  } as any,
+)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_layout': {
-      id: '/_layout';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof LayoutImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/about-us': {
-      id: '/about-us';
-      path: '/about-us';
-      fullPath: '/about-us';
-      preLoaderRoute: typeof AboutUsImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsImport
+      parentRoute: typeof rootRoute
+    }
     '/contact-us': {
-      id: '/contact-us';
-      path: '/contact-us';
-      fullPath: '/contact-us';
-      preLoaderRoute: typeof ContactUsImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard': {
-      id: '/dashboard';
-      path: '/dashboard';
-      fullPath: '/dashboard';
-      preLoaderRoute: typeof DashboardImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/deferred-data': {
+      id: '/deferred-data'
+      path: '/deferred-data'
+      fullPath: '/deferred-data'
+      preLoaderRoute: typeof DeferredDataImport
+      parentRoute: typeof rootRoute
+    }
     '/(stocks)/apple-inc': {
-      id: '/(stocks)/apple-inc';
-      path: '/apple-inc';
-      fullPath: '/apple-inc';
-      preLoaderRoute: typeof stocksAppleIncImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/(stocks)/apple-inc'
+      path: '/apple-inc'
+      fullPath: '/apple-inc'
+      preLoaderRoute: typeof stocksAppleIncImport
+      parentRoute: typeof rootRoute
+    }
     '/(stocks)/berkshire-hathaway-inc': {
-      id: '/(stocks)/berkshire-hathaway-inc';
-      path: '/berkshire-hathaway-inc';
-      fullPath: '/berkshire-hathaway-inc';
-      preLoaderRoute: typeof stocksBerkshireHathawayIncImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/(stocks)/berkshire-hathaway-inc'
+      path: '/berkshire-hathaway-inc'
+      fullPath: '/berkshire-hathaway-inc'
+      preLoaderRoute: typeof stocksBerkshireHathawayIncImport
+      parentRoute: typeof rootRoute
+    }
     '/(stocks)/nike-inc': {
-      id: '/(stocks)/nike-inc';
-      path: '/nike-inc';
-      fullPath: '/nike-inc';
-      preLoaderRoute: typeof stocksNikeIncImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/(stocks)/nike-inc'
+      path: '/nike-inc'
+      fullPath: '/nike-inc'
+      preLoaderRoute: typeof stocksNikeIncImport
+      parentRoute: typeof rootRoute
+    }
     '/(stocks)/starbucks-corporation': {
-      id: '/(stocks)/starbucks-corporation';
-      path: '/starbucks-corporation';
-      fullPath: '/starbucks-corporation';
-      preLoaderRoute: typeof stocksStarbucksCorporationImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/(stocks)/starbucks-corporation'
+      path: '/starbucks-corporation'
+      fullPath: '/starbucks-corporation'
+      preLoaderRoute: typeof stocksStarbucksCorporationImport
+      parentRoute: typeof rootRoute
+    }
     '/_layout/layout-a': {
-      id: '/_layout/layout-a';
-      path: '/layout-a';
-      fullPath: '/layout-a';
-      preLoaderRoute: typeof LayoutLayoutAImport;
-      parentRoute: typeof LayoutImport;
-    };
+      id: '/_layout/layout-a'
+      path: '/layout-a'
+      fullPath: '/layout-a'
+      preLoaderRoute: typeof LayoutLayoutAImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/layout-b': {
-      id: '/_layout/layout-b';
-      path: '/layout-b';
-      fullPath: '/layout-b';
-      preLoaderRoute: typeof LayoutLayoutBImport;
-      parentRoute: typeof LayoutImport;
-    };
+      id: '/_layout/layout-b'
+      path: '/layout-b'
+      fullPath: '/layout-b'
+      preLoaderRoute: typeof LayoutLayoutBImport
+      parentRoute: typeof LayoutImport
+    }
     '/dashboard/invoices': {
-      id: '/dashboard/invoices';
-      path: '/invoices';
-      fullPath: '/dashboard/invoices';
-      preLoaderRoute: typeof DashboardInvoicesImport;
-      parentRoute: typeof DashboardImport;
-    };
+      id: '/dashboard/invoices'
+      path: '/invoices'
+      fullPath: '/dashboard/invoices'
+      preLoaderRoute: typeof DashboardInvoicesImport
+      parentRoute: typeof DashboardImport
+    }
     '/dashboard/users': {
-      id: '/dashboard/users';
-      path: '/users';
-      fullPath: '/dashboard/users';
-      preLoaderRoute: typeof DashboardUsersImport;
-      parentRoute: typeof DashboardImport;
-    };
+      id: '/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof DashboardUsersImport
+      parentRoute: typeof DashboardImport
+    }
     '/dashboard/': {
-      id: '/dashboard/';
-      path: '/';
-      fullPath: '/dashboard/';
-      preLoaderRoute: typeof DashboardIndexImport;
-      parentRoute: typeof DashboardImport;
-    };
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexImport
+      parentRoute: typeof DashboardImport
+    }
     '/expensive/': {
-      id: '/expensive/';
-      path: '/expensive';
-      fullPath: '/expensive';
-      preLoaderRoute: typeof ExpensiveIndexLazyImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/expensive/'
+      path: '/expensive'
+      fullPath: '/expensive'
+      preLoaderRoute: typeof ExpensiveIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard/invoices/$invoiceId': {
-      id: '/dashboard/invoices/$invoiceId';
-      path: '/$invoiceId';
-      fullPath: '/dashboard/invoices/$invoiceId';
-      preLoaderRoute: typeof DashboardInvoicesInvoiceIdImport;
-      parentRoute: typeof DashboardInvoicesImport;
-    };
+      id: '/dashboard/invoices/$invoiceId'
+      path: '/$invoiceId'
+      fullPath: '/dashboard/invoices/$invoiceId'
+      preLoaderRoute: typeof DashboardInvoicesInvoiceIdImport
+      parentRoute: typeof DashboardInvoicesImport
+    }
     '/dashboard/users/user': {
-      id: '/dashboard/users/user';
-      path: '/user';
-      fullPath: '/dashboard/users/user';
-      preLoaderRoute: typeof DashboardUsersUserImport;
-      parentRoute: typeof DashboardUsersImport;
-    };
+      id: '/dashboard/users/user'
+      path: '/user'
+      fullPath: '/dashboard/users/user'
+      preLoaderRoute: typeof DashboardUsersUserImport
+      parentRoute: typeof DashboardUsersImport
+    }
     '/dashboard/invoices/': {
-      id: '/dashboard/invoices/';
-      path: '/';
-      fullPath: '/dashboard/invoices/';
-      preLoaderRoute: typeof DashboardInvoicesIndexImport;
-      parentRoute: typeof DashboardInvoicesImport;
-    };
+      id: '/dashboard/invoices/'
+      path: '/'
+      fullPath: '/dashboard/invoices/'
+      preLoaderRoute: typeof DashboardInvoicesIndexImport
+      parentRoute: typeof DashboardInvoicesImport
+    }
     '/dashboard/users/': {
-      id: '/dashboard/users/';
-      path: '/';
-      fullPath: '/dashboard/users/';
-      preLoaderRoute: typeof DashboardUsersIndexImport;
-      parentRoute: typeof DashboardUsersImport;
-    };
+      id: '/dashboard/users/'
+      path: '/'
+      fullPath: '/dashboard/users/'
+      preLoaderRoute: typeof DashboardUsersIndexImport
+      parentRoute: typeof DashboardUsersImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface LayoutRouteChildren {
-  LayoutLayoutARoute: typeof LayoutLayoutARoute;
-  LayoutLayoutBRoute: typeof LayoutLayoutBRoute;
+  LayoutLayoutARoute: typeof LayoutLayoutARoute
+  LayoutLayoutBRoute: typeof LayoutLayoutBRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutLayoutARoute: LayoutLayoutARoute,
   LayoutLayoutBRoute: LayoutLayoutBRoute,
-};
+}
 
-const LayoutRouteWithChildren = LayoutRoute._addFileChildren(LayoutRouteChildren);
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 interface DashboardInvoicesRouteChildren {
-  DashboardInvoicesInvoiceIdRoute: typeof DashboardInvoicesInvoiceIdRoute;
-  DashboardInvoicesIndexRoute: typeof DashboardInvoicesIndexRoute;
+  DashboardInvoicesInvoiceIdRoute: typeof DashboardInvoicesInvoiceIdRoute
+  DashboardInvoicesIndexRoute: typeof DashboardInvoicesIndexRoute
 }
 
 const DashboardInvoicesRouteChildren: DashboardInvoicesRouteChildren = {
   DashboardInvoicesInvoiceIdRoute: DashboardInvoicesInvoiceIdRoute,
   DashboardInvoicesIndexRoute: DashboardInvoicesIndexRoute,
-};
+}
 
-const DashboardInvoicesRouteWithChildren = DashboardInvoicesRoute._addFileChildren(DashboardInvoicesRouteChildren);
+const DashboardInvoicesRouteWithChildren =
+  DashboardInvoicesRoute._addFileChildren(DashboardInvoicesRouteChildren)
 
 interface DashboardUsersRouteChildren {
-  DashboardUsersUserRoute: typeof DashboardUsersUserRoute;
-  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute;
+  DashboardUsersUserRoute: typeof DashboardUsersUserRoute
+  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
 }
 
 const DashboardUsersRouteChildren: DashboardUsersRouteChildren = {
   DashboardUsersUserRoute: DashboardUsersUserRoute,
   DashboardUsersIndexRoute: DashboardUsersIndexRoute,
-};
+}
 
-const DashboardUsersRouteWithChildren = DashboardUsersRoute._addFileChildren(DashboardUsersRouteChildren);
+const DashboardUsersRouteWithChildren = DashboardUsersRoute._addFileChildren(
+  DashboardUsersRouteChildren,
+)
 
 interface DashboardRouteChildren {
-  DashboardInvoicesRoute: typeof DashboardInvoicesRouteWithChildren;
-  DashboardUsersRoute: typeof DashboardUsersRouteWithChildren;
-  DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardInvoicesRoute: typeof DashboardInvoicesRouteWithChildren
+  DashboardUsersRoute: typeof DashboardUsersRouteWithChildren
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardInvoicesRoute: DashboardInvoicesRouteWithChildren,
   DashboardUsersRoute: DashboardUsersRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
-};
+}
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(DashboardRouteChildren);
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '': typeof LayoutRouteWithChildren;
-  '/about-us': typeof AboutUsRoute;
-  '/contact-us': typeof ContactUsRoute;
-  '/dashboard': typeof DashboardRouteWithChildren;
-  '/apple-inc': typeof stocksAppleIncRoute;
-  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute;
-  '/nike-inc': typeof stocksNikeIncRoute;
-  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute;
-  '/layout-a': typeof LayoutLayoutARoute;
-  '/layout-b': typeof LayoutLayoutBRoute;
-  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren;
-  '/dashboard/users': typeof DashboardUsersRouteWithChildren;
-  '/dashboard/': typeof DashboardIndexRoute;
-  '/expensive': typeof ExpensiveIndexLazyRoute;
-  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute;
-  '/dashboard/users/user': typeof DashboardUsersUserRoute;
-  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute;
-  '/dashboard/users/': typeof DashboardUsersIndexRoute;
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/deferred-data': typeof DeferredDataRoute
+  '/apple-inc': typeof stocksAppleIncRoute
+  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/nike-inc': typeof stocksNikeIncRoute
+  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/layout-a': typeof LayoutLayoutARoute
+  '/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
+  '/dashboard/users': typeof DashboardUsersRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '': typeof LayoutRouteWithChildren;
-  '/about-us': typeof AboutUsRoute;
-  '/contact-us': typeof ContactUsRoute;
-  '/apple-inc': typeof stocksAppleIncRoute;
-  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute;
-  '/nike-inc': typeof stocksNikeIncRoute;
-  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute;
-  '/layout-a': typeof LayoutLayoutARoute;
-  '/layout-b': typeof LayoutLayoutBRoute;
-  '/dashboard': typeof DashboardIndexRoute;
-  '/expensive': typeof ExpensiveIndexLazyRoute;
-  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute;
-  '/dashboard/users/user': typeof DashboardUsersUserRoute;
-  '/dashboard/invoices': typeof DashboardInvoicesIndexRoute;
-  '/dashboard/users': typeof DashboardUsersIndexRoute;
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/deferred-data': typeof DeferredDataRoute
+  '/apple-inc': typeof stocksAppleIncRoute
+  '/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/nike-inc': typeof stocksNikeIncRoute
+  '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/layout-a': typeof LayoutLayoutARoute
+  '/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users': typeof DashboardUsersIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/_layout': typeof LayoutRouteWithChildren;
-  '/about-us': typeof AboutUsRoute;
-  '/contact-us': typeof ContactUsRoute;
-  '/dashboard': typeof DashboardRouteWithChildren;
-  '/(stocks)/apple-inc': typeof stocksAppleIncRoute;
-  '/(stocks)/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute;
-  '/(stocks)/nike-inc': typeof stocksNikeIncRoute;
-  '/(stocks)/starbucks-corporation': typeof stocksStarbucksCorporationRoute;
-  '/_layout/layout-a': typeof LayoutLayoutARoute;
-  '/_layout/layout-b': typeof LayoutLayoutBRoute;
-  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren;
-  '/dashboard/users': typeof DashboardUsersRouteWithChildren;
-  '/dashboard/': typeof DashboardIndexRoute;
-  '/expensive/': typeof ExpensiveIndexLazyRoute;
-  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute;
-  '/dashboard/users/user': typeof DashboardUsersUserRoute;
-  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute;
-  '/dashboard/users/': typeof DashboardUsersIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/deferred-data': typeof DeferredDataRoute
+  '/(stocks)/apple-inc': typeof stocksAppleIncRoute
+  '/(stocks)/berkshire-hathaway-inc': typeof stocksBerkshireHathawayIncRoute
+  '/(stocks)/nike-inc': typeof stocksNikeIncRoute
+  '/(stocks)/starbucks-corporation': typeof stocksStarbucksCorporationRoute
+  '/_layout/layout-a': typeof LayoutLayoutARoute
+  '/_layout/layout-b': typeof LayoutLayoutBRoute
+  '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
+  '/dashboard/users': typeof DashboardUsersRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/expensive/': typeof ExpensiveIndexLazyRoute
+  '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
+  '/dashboard/users/user': typeof DashboardUsersUserRoute
+  '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | ''
     | '/about-us'
     | '/contact-us'
     | '/dashboard'
+    | '/deferred-data'
     | '/apple-inc'
     | '/berkshire-hathaway-inc'
     | '/nike-inc'
@@ -428,13 +460,14 @@ export interface FileRouteTypes {
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices/'
-    | '/dashboard/users/';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/dashboard/users/'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
     | '/about-us'
     | '/contact-us'
+    | '/deferred-data'
     | '/apple-inc'
     | '/berkshire-hathaway-inc'
     | '/nike-inc'
@@ -446,7 +479,7 @@ export interface FileRouteTypes {
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices'
-    | '/dashboard/users';
+    | '/dashboard/users'
   id:
     | '__root__'
     | '/'
@@ -454,6 +487,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/contact-us'
     | '/dashboard'
+    | '/deferred-data'
     | '/(stocks)/apple-inc'
     | '/(stocks)/berkshire-hathaway-inc'
     | '/(stocks)/nike-inc'
@@ -467,21 +501,22 @@ export interface FileRouteTypes {
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices/'
-    | '/dashboard/users/';
-  fileRoutesById: FileRoutesById;
+    | '/dashboard/users/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  LayoutRoute: typeof LayoutRouteWithChildren;
-  AboutUsRoute: typeof AboutUsRoute;
-  ContactUsRoute: typeof ContactUsRoute;
-  DashboardRoute: typeof DashboardRouteWithChildren;
-  stocksAppleIncRoute: typeof stocksAppleIncRoute;
-  stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute;
-  stocksNikeIncRoute: typeof stocksNikeIncRoute;
-  stocksStarbucksCorporationRoute: typeof stocksStarbucksCorporationRoute;
-  ExpensiveIndexLazyRoute: typeof ExpensiveIndexLazyRoute;
+  IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
+  AboutUsRoute: typeof AboutUsRoute
+  ContactUsRoute: typeof ContactUsRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  DeferredDataRoute: typeof DeferredDataRoute
+  stocksAppleIncRoute: typeof stocksAppleIncRoute
+  stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute
+  stocksNikeIncRoute: typeof stocksNikeIncRoute
+  stocksStarbucksCorporationRoute: typeof stocksStarbucksCorporationRoute
+  ExpensiveIndexLazyRoute: typeof ExpensiveIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -490,14 +525,17 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   ContactUsRoute: ContactUsRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  DeferredDataRoute: DeferredDataRoute,
   stocksAppleIncRoute: stocksAppleIncRoute,
   stocksBerkshireHathawayIncRoute: stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute: stocksNikeIncRoute,
   stocksStarbucksCorporationRoute: stocksStarbucksCorporationRoute,
   ExpensiveIndexLazyRoute: ExpensiveIndexLazyRoute,
-};
+}
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -510,6 +548,7 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
         "/about-us",
         "/contact-us",
         "/dashboard",
+        "/deferred-data",
         "/(stocks)/apple-inc",
         "/(stocks)/berkshire-hathaway-inc",
         "/(stocks)/nike-inc",
@@ -540,6 +579,9 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
         "/dashboard/users",
         "/dashboard/"
       ]
+    },
+    "/deferred-data": {
+      "filePath": "deferred-data.tsx"
     },
     "/(stocks)/apple-inc": {
       "filePath": "(stocks)/apple-inc.tsx"

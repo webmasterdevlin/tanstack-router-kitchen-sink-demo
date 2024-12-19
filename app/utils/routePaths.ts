@@ -4,6 +4,7 @@ export const root = [
   ['/layout-a', 'layout a'],
   ['/layout-b', 'layout b'],
   ['/expensive', 'expensive (lazy)'],
+  ['/deferred-data', 'deferred data'],
   // ['/profile', 'profile'], // type error
 ] as const;
 
