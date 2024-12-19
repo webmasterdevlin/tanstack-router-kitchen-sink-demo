@@ -8,6 +8,8 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
@@ -29,6 +31,10 @@ import { Route as DashboardUsersIndexImport } from './routes/dashboard.users.ind
 import { Route as DashboardInvoicesIndexImport } from './routes/dashboard.invoices.index'
 import { Route as DashboardUsersUserImport } from './routes/dashboard.users.user'
 import { Route as DashboardInvoicesInvoiceIdImport } from './routes/dashboard.invoices.$invoiceId'
+
+// Create Virtual Routes
+
+const ExpensiveIndexLazyImport = createFileRoute('/expensive/')()
 
 // Create/Update Routes
 
@@ -60,6 +66,14 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const ExpensiveIndexLazyRoute = ExpensiveIndexLazyImport.update({
+  id: '/expensive/',
+  path: '/expensive/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/expensive/index.lazy').then((d) => d.Route),
+)
 
 const DashboardIndexRoute = DashboardIndexImport.update({
   id: '/',
@@ -247,6 +261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof DashboardImport
     }
+    '/expensive/': {
+      id: '/expensive/'
+      path: '/expensive'
+      fullPath: '/expensive'
+      preLoaderRoute: typeof ExpensiveIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard/invoices/$invoiceId': {
       id: '/dashboard/invoices/$invoiceId'
       path: '/$invoiceId'
@@ -351,6 +372,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
   '/dashboard/users': typeof DashboardUsersRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
   '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
   '/dashboard/users/user': typeof DashboardUsersUserRoute
   '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
@@ -369,6 +391,7 @@ export interface FileRoutesByTo {
   '/layout-a': typeof LayoutLayoutARoute
   '/layout-b': typeof LayoutLayoutBRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/expensive': typeof ExpensiveIndexLazyRoute
   '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
   '/dashboard/users/user': typeof DashboardUsersUserRoute
   '/dashboard/invoices': typeof DashboardInvoicesIndexRoute
@@ -391,6 +414,7 @@ export interface FileRoutesById {
   '/dashboard/invoices': typeof DashboardInvoicesRouteWithChildren
   '/dashboard/users': typeof DashboardUsersRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/expensive/': typeof ExpensiveIndexLazyRoute
   '/dashboard/invoices/$invoiceId': typeof DashboardInvoicesInvoiceIdRoute
   '/dashboard/users/user': typeof DashboardUsersUserRoute
   '/dashboard/invoices/': typeof DashboardInvoicesIndexRoute
@@ -414,6 +438,7 @@ export interface FileRouteTypes {
     | '/dashboard/invoices'
     | '/dashboard/users'
     | '/dashboard/'
+    | '/expensive'
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices/'
@@ -431,6 +456,7 @@ export interface FileRouteTypes {
     | '/layout-a'
     | '/layout-b'
     | '/dashboard'
+    | '/expensive'
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices'
@@ -451,6 +477,7 @@ export interface FileRouteTypes {
     | '/dashboard/invoices'
     | '/dashboard/users'
     | '/dashboard/'
+    | '/expensive/'
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
     | '/dashboard/invoices/'
@@ -468,6 +495,7 @@ export interface RootRouteChildren {
   stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute
   stocksNikeIncRoute: typeof stocksNikeIncRoute
   stocksStarbucksCorporationRoute: typeof stocksStarbucksCorporationRoute
+  ExpensiveIndexLazyRoute: typeof ExpensiveIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -480,6 +508,7 @@ const rootRouteChildren: RootRouteChildren = {
   stocksBerkshireHathawayIncRoute: stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute: stocksNikeIncRoute,
   stocksStarbucksCorporationRoute: stocksStarbucksCorporationRoute,
+  ExpensiveIndexLazyRoute: ExpensiveIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -500,7 +529,8 @@ export const routeTree = rootRoute
         "/(stocks)/apple-inc",
         "/(stocks)/berkshire-hathaway-inc",
         "/(stocks)/nike-inc",
-        "/(stocks)/starbucks-corporation"
+        "/(stocks)/starbucks-corporation",
+        "/expensive/"
       ]
     },
     "/": {
@@ -566,6 +596,9 @@ export const routeTree = rootRoute
     "/dashboard/": {
       "filePath": "dashboard.index.tsx",
       "parent": "/dashboard"
+    },
+    "/expensive/": {
+      "filePath": "expensive/index.lazy.tsx"
     },
     "/dashboard/invoices/$invoiceId": {
       "filePath": "dashboard.invoices.$invoiceId.tsx",

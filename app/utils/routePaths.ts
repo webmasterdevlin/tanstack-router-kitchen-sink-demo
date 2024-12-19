@@ -3,6 +3,7 @@ export const root = [
   ['/dashboard', 'dashboard (preloaded)'],
   ['/layout-a', 'layout a'],
   ['/layout-b', 'layout b'],
+  ['/expensive', 'expensive (lazy)'],
   // ['/profile', 'profile'], // type error
 ] as const;
 
