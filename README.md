@@ -2,8 +2,8 @@
 
 To run this example:
 
-- `bun install` or `pnpm`
-- `bun run dev` or `pnpm start`
+- `npm install`
+- `npm run dev`
 
 
 ## The route loading lifecycle
