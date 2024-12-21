@@ -13,13 +13,6 @@ export const Route = createFileRoute('/dashboard/invoices/')({
 function InvoicesIndexComponent() {
   const router = useRouter();
 
-  // const { mutate, status } = useMutation({
-  //   fn: postInvoice,
-  //   onSuccess: () => {
-  //     return router.invalidate();
-  //   },
-  // });
-
   const postInvoice = useServerFn(postInvoiceFn);
   const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
 
