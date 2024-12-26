@@ -1,4 +1,3 @@
-import "../globals.css";
 import { lazy, type ReactNode } from 'react';
 import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
