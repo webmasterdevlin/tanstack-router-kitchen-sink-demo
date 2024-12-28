@@ -1,4 +1,3 @@
-import './globals.css';
 import { createRouter as createTanStackRouter, ErrorComponent } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { Spinner } from './components/Spinner';
