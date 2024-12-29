@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "module": "ESNext",
+    "types": ["vite/client", "node"],
     "moduleResolution": "Bundler",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
