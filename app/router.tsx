@@ -7,6 +7,7 @@ export function createRouter() {
     routeTree,
     defaultPreload: 'intent',
     defaultErrorComponent: ({ error }) => {
+      console.error('Error caught by router', error);
       return <ErrorComponent error={error} />;
     },
     defaultNotFoundComponent: () => {

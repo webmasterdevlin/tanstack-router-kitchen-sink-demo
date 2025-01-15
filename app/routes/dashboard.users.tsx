@@ -134,12 +134,7 @@ function UsersComponent() {
                   {user.name}{' '}
                   <MatchRoute
                     to="/dashboard/users/user"
-                    search={d => {
-                      return {
-                        ...d,
-                        userId: user.id,
-                      };
-                    }}
+                    search={{ userId: user.id, }}
                     pending
                   >
                     {match => {

@@ -31,7 +31,8 @@ export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ params: { invoiceId } }) => {
-    return fetchInvoiceByIdFn({ data: Number(invoiceId) });
+    console.log('Loading invoice', invoiceId);
+    return fetchInvoiceByIdFn({ data: invoiceId });
   },
 });
 
