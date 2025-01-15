@@ -59,8 +59,9 @@ const AuthenticatedUser = () => {
     return <pre className="text-indigo-500">{auth?.username}</pre>
 }
 
+const msalInstance = new PublicClientApplication(msalConfig);
+
 function RootComponent() {
-    const msalInstance = new PublicClientApplication(msalConfig);
 
     return (
         <MsalProvider instance={msalInstance}>
