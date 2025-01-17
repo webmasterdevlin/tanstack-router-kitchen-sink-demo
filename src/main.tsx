@@ -1,6 +1,6 @@
 import './index.css';
 
-import { PublicClientApplication } from '@azure/msal-browser';
+import { EventType, PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, ErrorComponent, createRouter } from '@tanstack/react-router';
@@ -48,6 +48,23 @@ function InnerApp() {
 }
 
 const msalInstance = new PublicClientApplication(msalConfig);
+msalInstance.initialize().then(() => {
+  // Default to using the first account if no account is active on page load
+  if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
+    // Account selection logic is app dependent. Adjust as needed for different use cases.
+    msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
+  }
+
+  // Optional - This will update account state if a user signs in from another tab or window
+  msalInstance.enableAccountStorageEvents();
+
+  msalInstance.addEventCallback((event: any) => {
+    if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
+      const account = event.payload.account;
+      msalInstance.setActiveAccount(account);
+    }
+  });
+});
 
 function App() {
   return (
