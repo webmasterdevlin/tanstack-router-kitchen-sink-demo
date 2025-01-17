@@ -4,6 +4,9 @@ import { Spinner } from './components/Spinner';
 
 export function createRouter() {
   const router = createTanStackRouter({
+    context: {
+      auth: undefined!
+    },
     routeTree,
     defaultPreload: 'intent',
     defaultErrorComponent: ({ error }) => {
