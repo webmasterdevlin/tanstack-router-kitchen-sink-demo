@@ -1,8 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { fetchInvoicesFn } from '@/functions/todos';
+import { Suspense } from 'react';
 
 export const Route = createFileRoute('/dashboard/')({
   component: DashboardIndexComponent,
+  staleTime: 1000 * 60 * 1,
+  preload: true,
+  preloadStaleTime: 1000 * 60 * 1,
   /**
    * - preconnect and dns-prefetch are both about preparing the connection.
    * - prefetch and preload are about fetching resources, with preload
@@ -11,8 +15,8 @@ export const Route = createFileRoute('/dashboard/')({
 
    * https://developer.mozilla.org/docs/Learn/Performance/Web_Performance_Basics
    */
-  loader: () => {
-    return fetchInvoicesFn();
+  loader: async () => {
+    return await fetchInvoicesFn();
   },
 });
 

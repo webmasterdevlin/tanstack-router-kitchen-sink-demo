@@ -4,8 +4,12 @@ import { fetchInvoicesFn } from '@/functions/todos';
 
 export const Route = createFileRoute('/dashboard/invoices')({
   component: InvoicesComponent,
-  loader: () => {
-    return fetchInvoicesFn();
+  preload: true,
+  preloadStaleTime: 1000 * 60 * 1,
+  pendingMs: 0,
+  pendingMinMs: 0,
+  loader: async () => {
+    return await fetchInvoicesFn();
   },
 });
 

@@ -6,8 +6,6 @@ import Login from './-ignored-pages/Login';
 
 export const Route = createFileRoute('/dashboard')({
   staleTime: 1000 * 60 * 5,
-  preload: true,
-  
   beforeLoad: ({ context }) => {
 
   },

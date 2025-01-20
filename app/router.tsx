@@ -8,7 +8,7 @@ export function createRouter() {
       auth: undefined!
     },
     routeTree,
-    defaultPreload: 'intent',
+    defaultPreload: 'viewport',
     defaultErrorComponent: ({ error }) => {
       console.error('Error caught by router', error);
       return <ErrorComponent error={error} />;
