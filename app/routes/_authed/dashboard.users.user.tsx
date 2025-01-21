@@ -13,7 +13,6 @@ export const Route = createFileRoute('/_authed/dashboard/users/user')({
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ deps: { userId } }) => {
-    console.log(userId)
     return fetchUserByIdFn({ data: userId })
   },
 })

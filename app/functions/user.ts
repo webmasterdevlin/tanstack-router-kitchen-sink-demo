@@ -1,3 +1,4 @@
+import { bananaMiddleware } from '@/middleware/banana';
 import { fetchUserById, fetchUsers } from '@/utils/mockTodos';
 import { createServerFn } from '@tanstack/start';
 import { z } from 'zod';
@@ -8,6 +9,7 @@ const FetchUsersValidationSchema = z.object({
 });
 
 export const fetchUsersFn = createServerFn({ method: 'GET' })
+  .middleware([bananaMiddleware])
   .validator((users: unknown) => {
     return FetchUsersValidationSchema.parse(users);
   })
@@ -16,6 +18,7 @@ export const fetchUsersFn = createServerFn({ method: 'GET' })
   });
 
 export const fetchUserByIdFn = createServerFn({ method: 'GET' })
+  .middleware([bananaMiddleware])
   .validator((id: number) => id)
   .handler(async ({ data }) => {
     return await fetchUserById(data);

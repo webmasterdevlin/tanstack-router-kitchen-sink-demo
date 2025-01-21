@@ -1,3 +1,4 @@
+import { appleMiddleware } from '@/middleware/apple';
 import { fetchInvoiceById, fetchInvoices, patchInvoice, postInvoice } from '@/utils/mockTodos';
 import { createServerFn } from '@tanstack/start';
 import { z } from 'zod';
@@ -7,6 +8,7 @@ export const fetchInvoicesFn = createServerFn({ method: 'GET' }).handler(async (
 });
 
 export const fetchInvoiceByIdFn = createServerFn({ method: 'GET' })
+  .middleware([appleMiddleware])
   .validator((data: number) => data)
   .handler(async ({ data }) => {
     const invoice = await fetchInvoiceById(data);
@@ -23,6 +25,7 @@ const PostInvoiceValidationSchema = z.object({
 });
 
 export const postInvoiceFn = createServerFn({ method: 'POST' })
+  .middleware([appleMiddleware])
   .validator((invoice: unknown) => {
     return PostInvoiceValidationSchema.parse(invoice);
   })
@@ -37,6 +40,7 @@ const PatchInvoiceValidationSchema = z.object({
 });
 
 export const patchInvoiceFn = createServerFn({ method: 'POST' })
+  .middleware([appleMiddleware])
   .validator((invoice: unknown) => {
     return PatchInvoiceValidationSchema.parse(invoice);
   })
