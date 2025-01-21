@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { InvoiceFields } from '@/components/InvoiceFields'
 import { fetchInvoiceById } from '@/utils/mockTodos'
-import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/todos'
+import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/invoice'
 import { useServerFn } from '@tanstack/start'
 import { z } from 'zod'
 import { NotFound } from '@/components/NotFound'

@@ -4,6 +4,7 @@ import DashboardNav from '@/components/DashboardNav'
 export const Route = createFileRoute('/_authed/dashboard')({
   staleTime: 1000 * 60 * 5,
   preload: true,
+  preloadStaleTime: 1000 * 60 * 5,
   component: () => {
 
     return (

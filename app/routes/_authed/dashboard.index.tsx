@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { fetchInvoicesFn } from '@/functions/todos'
+import { fetchInvoicesFn } from '@/functions/invoice'
 import { Suspense } from 'react'
 
 export const Route = createFileRoute('/_authed/dashboard/')({

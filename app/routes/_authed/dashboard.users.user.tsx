@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { fetchUserByIdFn } from '@/functions/todos'
+import { fetchUserByIdFn } from '@/functions/user'
 import { z } from 'zod'
 
 export const Route = createFileRoute('/_authed/dashboard/users/user')({

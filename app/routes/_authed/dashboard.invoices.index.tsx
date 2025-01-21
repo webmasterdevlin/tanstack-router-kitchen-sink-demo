@@ -4,7 +4,7 @@ import { InvoiceFields } from '@/components/InvoiceFields'
 import { Spinner } from '@/components/Spinner'
 import { type Invoice } from '@/utils/mockTodos'
 import { useServerFn } from '@tanstack/start'
-import { postInvoiceFn } from '@/functions/todos'
+import { postInvoiceFn } from '@/functions/invoice'
 
 export const Route = createFileRoute('/_authed/dashboard/invoices/')({
   component: InvoicesIndexComponent,

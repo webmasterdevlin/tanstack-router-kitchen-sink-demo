@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-router'
 import { z } from 'zod'
 import { Spinner } from '@/components/Spinner'
-import { fetchUsersFn } from '@/functions/todos'
+import { fetchUsersFn } from '@/functions/user'
 
 type UsersViewSortBy = 'name' | 'id' | 'email'
 

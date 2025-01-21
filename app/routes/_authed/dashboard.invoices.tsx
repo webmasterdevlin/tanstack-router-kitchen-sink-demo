@@ -5,7 +5,7 @@ import {
   Outlet,
 } from '@tanstack/react-router'
 import { Spinner } from '@/components/Spinner'
-import { fetchInvoicesFn } from '@/functions/todos'
+import { fetchInvoicesFn } from '@/functions/invoice'
 
 export const Route = createFileRoute('/_authed/dashboard/invoices')({
   component: InvoicesComponent,
