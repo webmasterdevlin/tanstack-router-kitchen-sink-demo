@@ -1,8 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { fetchInvoicesFn } from '@/functions/todos';
-import { Suspense } from 'react';
+import { createFileRoute } from '@tanstack/react-router'
+import { fetchInvoicesFn } from '@/functions/todos'
+import { Suspense } from 'react'
 
-export const Route = createFileRoute('/dashboard/')({
+export const Route = createFileRoute('/_authed/dashboard/')({
   component: DashboardIndexComponent,
   staleTime: 1000 * 60 * 1,
   preload: true,
@@ -16,18 +16,19 @@ export const Route = createFileRoute('/dashboard/')({
    * https://developer.mozilla.org/docs/Learn/Performance/Web_Performance_Basics
    */
   loader: async () => {
-    return await fetchInvoicesFn();
+    return await fetchInvoicesFn()
   },
-});
+})
 
 function DashboardIndexComponent() {
-  const invoices = Route.useLoaderData();
+  const invoices = Route.useLoaderData()
 
   return (
     <div className="p-2">
       <div className="p-2">
-        Welcome to the dashboard! You have <strong>{invoices?.length} total invoices</strong>.
+        Welcome to the dashboard! You have{' '}
+        <strong>{invoices?.length} total invoices</strong>.
       </div>
     </div>
-  );
+  )
 }

@@ -1,15 +1,14 @@
 import globalStyle from '../globals.css?url';
 import { lazy, type ReactNode } from 'react';
-import { Outlet, ScrollRestoration, createRootRoute, createRootRouteWithContext, useRouteContext } from '@tanstack/react-router';
+import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
-import { MsalProvider } from '@azure/msal-react';
-import { EventType, PublicClientApplication } from '@azure/msal-browser';
 import MainNav from '@/components/MainNav';
-import { msalConfig } from '@/auth/config';
-import useAuth from '@/hooks/useAuth';
-import { Auth } from '@/models/auth';
+import { fetchClerkAuthFn } from '@/functions/auth';
+import {
+    ClerkProvider,
+} from '@clerk/tanstack-start'
 
-export const Route = createRootRouteWithContext<{ auth: Auth }>()({
+export const Route = createRootRoute({
     component: RootComponent,
     head: () => {
         return {
@@ -30,8 +29,34 @@ export const Route = createRootRouteWithContext<{ auth: Auth }>()({
                     rel: 'stylesheet',
                     href: globalStyle
                 },
+                {
+                    rel: 'apple-touch-icon',
+                    sizes: '180x180',
+                    href: '/apple-touch-icon.png',
+                },
+                {
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '32x32',
+                    href: '/favicon-32x32.png',
+                },
+                {
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '16x16',
+                    href: '/favicon-16x16.png',
+                },
+                { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+                { rel: 'icon', href: '/favicon.ico' },
             ]
         };
+    },
+    beforeLoad: async () => {
+        const { userId } = await fetchClerkAuthFn()
+
+        return {
+            userId,
+        }
     },
 });
 
@@ -54,45 +79,18 @@ const TanStackRouterDevtools =
         );
 
 
-const AuthenticatedUser = () => {
-    const auth = useAuth();
-    const routeContext = useRouteContext({ from: '__root__' });
-    routeContext.auth = auth;
 
-    return <pre className="text-indigo-500">{auth?.username}</pre>
-}
-export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
-    const msalInstance = new PublicClientApplication(msalConfig);
-
-    msalInstance.initialize().then(() => {
-        // Account selection logic is app dependent. Adjust as needed for different use cases.
-        const accounts = msalInstance.getAllAccounts();
-        if (accounts.length > 0) {
-            msalInstance.setActiveAccount(accounts[0]);
-        }
-
-        msalInstance.addEventCallback((event: any) => {
-            if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
-                const account = event.payload.account;
-                msalInstance.setActiveAccount(account);
-            }
-        });
-    });
-
-    return <MsalProvider instance={msalInstance}>{children}</MsalProvider>
-}
 
 
 function RootComponent() {
 
     return (
-        <AuthProvider>
+        <ClerkProvider>
             <RootDocument>
                 <div className={'flex min-h-screen flex-col'}>
                     <div className={'flex items-center gap-2 border-b'}>
                         <div className="flex w-full items-center justify-between">
                             <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
-                            <AuthenticatedUser />
                         </div>
                     </div>
                     <div className={'flex flex-1'}>
@@ -105,7 +103,7 @@ function RootComponent() {
                 </div>
                 <TanStackRouterDevtools position="bottom-left" />
             </RootDocument>
-        </AuthProvider>
+        </ClerkProvider>
     );
 }
 

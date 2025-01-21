@@ -1,106 +1,113 @@
-import { useState, useEffect } from 'react';
-import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
-import { InvoiceFields } from '@/components/InvoiceFields';
-import { fetchInvoiceById } from '@/utils/mockTodos';
-import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/todos';
-import { useServerFn } from '@tanstack/start';
-import { z } from 'zod';
+import { useState, useEffect } from 'react'
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useRouter,
+} from '@tanstack/react-router'
+import { InvoiceFields } from '@/components/InvoiceFields'
+import { fetchInvoiceById } from '@/utils/mockTodos'
+import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/todos'
+import { useServerFn } from '@tanstack/start'
+import { z } from 'zod'
+import { NotFound } from '@/components/NotFound'
 
 /**
  * `Flat Routes` gives you the ability to use `.`s to denote route nesting levels.
  */
-export const Route = createFileRoute('/dashboard/invoices/$invoiceId')({
+export const Route = createFileRoute('/_authed/dashboard/invoices/$invoiceId')({
   component: InvoiceComponent,
+  notFoundComponent: () => {
+    return <NotFound>Invoice not found</NotFound>
+  },
   params: {
-    parse: params => {
+    parse: (params) => {
       return {
         invoiceId: z.number().int().parse(Number(params.invoiceId)),
-      };
+      }
     },
     stringify: ({ invoiceId }) => {
-      return { invoiceId: `${invoiceId}` };
+      return { invoiceId: `${invoiceId}` }
     },
   },
-  validateSearch: search => {
+  validateSearch: (search) => {
     return z
       .object({
         notes: z.string().optional(),
         showNotes: z.boolean().optional(),
       })
-      .parse(search);
+      .parse(search)
   },
   // eslint-disable-next-line sort-keys-fix/sort-keys-fix
   loader: ({ params: { invoiceId } }) => {
-    console.log('Loading invoice', invoiceId);
-    return fetchInvoiceByIdFn({ data: invoiceId });
+    console.log('Loading invoice', invoiceId)
+    return fetchInvoiceByIdFn({ data: invoiceId })
   },
-});
+})
 
 function InvoiceComponent() {
-  const search = Route.useSearch();
-  const invoice = Route.useLoaderData();
-  const router = useRouter();
-  const navigate = useNavigate({ from: Route.fullPath });
+  const search = Route.useSearch()
+  const invoice = Route.useLoaderData()
+  const router = useRouter()
+  const navigate = useNavigate({ from: Route.fullPath })
 
-  const patchInvoice = useServerFn(patchInvoiceFn);
+  const patchInvoice = useServerFn(patchInvoiceFn)
 
-  const [submittedAt, setSubmittedAt] = useState<number | undefined>();
-  const [variables, setVariables] = useState<any | undefined>();
-  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
+  const [submittedAt, setSubmittedAt] = useState<number | undefined>()
+  const [variables, setVariables] = useState<any | undefined>()
+  const [status, setStatus] = useState<
+    'idle' | 'pending' | 'success' | 'error'
+  >('idle')
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const formData = new FormData(event.target as HTMLFormElement);
-    setStatus('pending');
-    setSubmittedAt(Date.now());
+    event.preventDefault()
+    event.stopPropagation()
+    const formData = new FormData(event.target as HTMLFormElement)
+    setStatus('pending')
+    setSubmittedAt(Date.now())
     const payload = {
       body: formData.get('body') as string,
       id: invoice.id,
       title: formData.get('title') as string,
-    };
-    setVariables(payload);
+    }
+    setVariables(payload)
     try {
       await patchInvoice({
         data: payload,
-      });
-      setStatus('success');
-      router.invalidate();
+      })
+      setStatus('success')
+      router.invalidate()
     } catch (err: any) {
-      setStatus('error');
+      setStatus('error')
     }
   }
 
-  const [notes, setNotes] = useState(search.notes ?? '');
+  const [notes, setNotes] = useState(search.notes ?? '')
 
   useEffect(() => {
     navigate({
       params: true,
       replace: true,
-      search: old => {
+      search: (old) => {
         return {
           ...old,
           notes: notes ? notes : undefined,
-        };
+        }
       },
-    });
-  }, [notes]);
+    })
+  }, [notes])
 
   return (
-    <form
-      key={invoice.id}
-      onSubmit={handleOnSubmit}
-      className="space-y-2 p-2"
-    >
+    <form key={invoice.id} onSubmit={handleOnSubmit} className="space-y-2 p-2">
       <InvoiceFields invoice={invoice} disabled={status === 'pending'} />
       <div>
         <Link
           from={Route.fullPath}
-          search={old => {
+          search={(old) => {
             return {
               ...old,
               showNotes: old?.showNotes ? undefined : true,
-            };
+            }
           }}
           className="text-indigo-700"
           params={true}
@@ -113,14 +120,16 @@ function InvoiceComponent() {
               <div className="h-2" />
               <textarea
                 value={notes}
-                onChange={e => {
-                  setNotes(e.target.value);
+                onChange={(e) => {
+                  setNotes(e.target.value)
                 }}
                 rows={5}
                 className="w-full rounded p-2 shadow"
                 placeholder="Write some notes here..."
               />
-              <div className="text-xs italic">Notes are stored in the URL. Try copying the URL into a new tab!</div>
+              <div className="text-xs italic">
+                Notes are stored in the URL. Try copying the URL into a new tab!
+              </div>
             </div>
           </>
         ) : null}
@@ -147,5 +156,5 @@ function InvoiceComponent() {
         </div>
       ) : null}
     </form>
-  );
+  )
 }

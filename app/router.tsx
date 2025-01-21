@@ -1,21 +1,15 @@
 import { createRouter as createTanStackRouter, ErrorComponent } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { Spinner } from './components/Spinner';
+import { DefaultCatchBoundary } from './components/DefaultCatchBoundary';
+import { NotFound } from './components/NotFound';
 
 export function createRouter() {
   const router = createTanStackRouter({
-    context: {
-      auth: undefined!
-    },
     routeTree,
-    defaultPreload: 'viewport',
-    defaultErrorComponent: ({ error }) => {
-      console.error('Error caught by router', error);
-      return <ErrorComponent error={error} />;
-    },
-    defaultNotFoundComponent: () => {
-      return <h1>Not Found</h1>;
-    },
+    defaultPreload: 'render',
+    defaultErrorComponent: DefaultCatchBoundary,
+    defaultNotFoundComponent: () => <NotFound />,
     defaultPendingComponent: () => {
       return (
         <div className={'p-2 text-2xl'}>

@@ -1,47 +1,46 @@
-import { useState } from 'react';
-import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { InvoiceFields } from '@/components/InvoiceFields';
-import { Spinner } from '@/components/Spinner';
-import { type Invoice } from '@/utils/mockTodos';
-import { useServerFn } from '@tanstack/start';
-import { postInvoiceFn } from '@/functions/todos';
+import { useState } from 'react'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { InvoiceFields } from '@/components/InvoiceFields'
+import { Spinner } from '@/components/Spinner'
+import { type Invoice } from '@/utils/mockTodos'
+import { useServerFn } from '@tanstack/start'
+import { postInvoiceFn } from '@/functions/todos'
 
-export const Route = createFileRoute('/dashboard/invoices/')({
+export const Route = createFileRoute('/_authed/dashboard/invoices/')({
   component: InvoicesIndexComponent,
-});
+})
 
 function InvoicesIndexComponent() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const postInvoice = useServerFn(postInvoiceFn);
-  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
+  const postInvoice = useServerFn(postInvoiceFn)
+  const [status, setStatus] = useState<
+    'idle' | 'pending' | 'success' | 'error'
+  >('idle')
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const formData = new FormData(event.target as HTMLFormElement);
-    setStatus('pending');
+    event.preventDefault()
+    event.stopPropagation()
+    const formData = new FormData(event.target as HTMLFormElement)
+    setStatus('pending')
     try {
       await postInvoice({
         data: {
           body: formData.get('body') as string,
           title: formData.get('title') as string,
         },
-      });
-      router.invalidate();
-      setStatus('success');
+      })
+      router.invalidate()
+      setStatus('success')
     } catch {
-      setStatus('error');
+      setStatus('error')
     }
   }
 
   return (
     <>
       <div className="p-2">
-        <form
-          onSubmit={handleOnSubmit}
-          className="space-y-2"
-        >
+        <form onSubmit={handleOnSubmit} className="space-y-2">
           <div>Create a new Invoice:</div>
           <InvoiceFields invoice={{} as Invoice} />
           <div>
@@ -70,5 +69,5 @@ function InvoicesIndexComponent() {
         </form>
       </div>
     </>
-  );
+  )
 }
