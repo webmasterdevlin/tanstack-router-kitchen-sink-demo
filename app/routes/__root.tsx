@@ -3,9 +3,9 @@ import { lazy, type ReactNode } from 'react';
 import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
 import MainNav from '@/components/MainNav';
-import { fetchClerkAuthFn } from '@/functions/auth';
 import {
     ClerkProvider,
+    useUser,
 } from '@clerk/tanstack-start'
 
 export const Route = createRootRoute({
@@ -51,13 +51,6 @@ export const Route = createRootRoute({
             ]
         };
     },
-    beforeLoad: async () => {
-        const { userId } = await fetchClerkAuthFn()
-
-        return {
-            userId,
-        }
-    },
 });
 
 const TanStackRouterDevtools =
@@ -79,8 +72,15 @@ const TanStackRouterDevtools =
         );
 
 
+function AuthenticatedUser() {
+    const { isSignedIn, user } = useUser();
 
+    if (!isSignedIn) {
+        return null;
+    }
 
+    return <h1 className="text-indigo-500">{user?.emailAddresses[0].emailAddress}</h1>
+}
 
 function RootComponent() {
 
@@ -91,6 +91,7 @@ function RootComponent() {
                     <div className={'flex items-center gap-2 border-b'}>
                         <div className="flex w-full items-center justify-between">
                             <h1 className={'p-2 text-3xl'}>Kitchen Sink 🍴</h1>
+                            <AuthenticatedUser />
                         </div>
                     </div>
                     <div className={'flex flex-1'}>

@@ -17,6 +17,8 @@ import { Route as AboutUsImport } from './routes/about-us'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as SignUpSplatImport } from './routes/sign-up.$'
+import { Route as SignInSplatImport } from './routes/sign-in.$'
 import { Route as LayoutLayoutBImport } from './routes/_layout.layout-b'
 import { Route as LayoutLayoutAImport } from './routes/_layout.layout-a'
 import { Route as AuthedDashboardImport } from './routes/_authed/dashboard'
@@ -65,6 +67,18 @@ const AuthedRoute = AuthedImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignUpSplatRoute = SignUpSplatImport.update({
+  id: '/sign-up/$',
+  path: '/sign-up/$',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignInSplatRoute = SignInSplatImport.update({
+  id: '/sign-in/$',
+  path: '/sign-in/$',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -253,6 +267,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLayoutBImport
       parentRoute: typeof LayoutImport
     }
+    '/sign-in/$': {
+      id: '/sign-in/$'
+      path: '/sign-in/$'
+      fullPath: '/sign-in/$'
+      preLoaderRoute: typeof SignInSplatImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign-up/$': {
+      id: '/sign-up/$'
+      path: '/sign-up/$'
+      fullPath: '/sign-up/$'
+      preLoaderRoute: typeof SignUpSplatImport
+      parentRoute: typeof rootRoute
+    }
     '/_authed/dashboard/invoices': {
       id: '/_authed/dashboard/invoices'
       path: '/invoices'
@@ -390,6 +418,8 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthedDashboardRouteWithChildren
   '/layout-a': typeof LayoutLayoutARoute
   '/layout-b': typeof LayoutLayoutBRoute
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/dashboard/invoices': typeof AuthedDashboardInvoicesRouteWithChildren
   '/dashboard/users': typeof AuthedDashboardUsersRouteWithChildren
   '/dashboard/': typeof AuthedDashboardIndexRoute
@@ -411,6 +441,8 @@ export interface FileRoutesByTo {
   '/starbucks-corporation': typeof stocksStarbucksCorporationRoute
   '/layout-a': typeof LayoutLayoutARoute
   '/layout-b': typeof LayoutLayoutBRoute
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/dashboard': typeof AuthedDashboardIndexRoute
   '/dashboard/invoices/$invoiceId': typeof AuthedDashboardInvoicesInvoiceIdRoute
   '/dashboard/users/user': typeof AuthedDashboardUsersUserRoute
@@ -433,6 +465,8 @@ export interface FileRoutesById {
   '/_authed/dashboard': typeof AuthedDashboardRouteWithChildren
   '/_layout/layout-a': typeof LayoutLayoutARoute
   '/_layout/layout-b': typeof LayoutLayoutBRoute
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/_authed/dashboard/invoices': typeof AuthedDashboardInvoicesRouteWithChildren
   '/_authed/dashboard/users': typeof AuthedDashboardUsersRouteWithChildren
   '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
@@ -457,6 +491,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/layout-a'
     | '/layout-b'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/dashboard/invoices'
     | '/dashboard/users'
     | '/dashboard/'
@@ -477,6 +513,8 @@ export interface FileRouteTypes {
     | '/starbucks-corporation'
     | '/layout-a'
     | '/layout-b'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/dashboard'
     | '/dashboard/invoices/$invoiceId'
     | '/dashboard/users/user'
@@ -497,6 +535,8 @@ export interface FileRouteTypes {
     | '/_authed/dashboard'
     | '/_layout/layout-a'
     | '/_layout/layout-b'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/_authed/dashboard/invoices'
     | '/_authed/dashboard/users'
     | '/_authed/dashboard/'
@@ -518,6 +558,8 @@ export interface RootRouteChildren {
   stocksBerkshireHathawayIncRoute: typeof stocksBerkshireHathawayIncRoute
   stocksNikeIncRoute: typeof stocksNikeIncRoute
   stocksStarbucksCorporationRoute: typeof stocksStarbucksCorporationRoute
+  SignInSplatRoute: typeof SignInSplatRoute
+  SignUpSplatRoute: typeof SignUpSplatRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -531,6 +573,8 @@ const rootRouteChildren: RootRouteChildren = {
   stocksBerkshireHathawayIncRoute: stocksBerkshireHathawayIncRoute,
   stocksNikeIncRoute: stocksNikeIncRoute,
   stocksStarbucksCorporationRoute: stocksStarbucksCorporationRoute,
+  SignInSplatRoute: SignInSplatRoute,
+  SignUpSplatRoute: SignUpSplatRoute,
 }
 
 export const routeTree = rootRoute
@@ -552,7 +596,9 @@ export const routeTree = rootRoute
         "/(stocks)/apple-inc",
         "/(stocks)/berkshire-hathaway-inc",
         "/(stocks)/nike-inc",
-        "/(stocks)/starbucks-corporation"
+        "/(stocks)/starbucks-corporation",
+        "/sign-in/$",
+        "/sign-up/$"
       ]
     },
     "/": {
@@ -608,6 +654,12 @@ export const routeTree = rootRoute
     "/_layout/layout-b": {
       "filePath": "_layout.layout-b.tsx",
       "parent": "/_layout"
+    },
+    "/sign-in/$": {
+      "filePath": "sign-in.$.tsx"
+    },
+    "/sign-up/$": {
+      "filePath": "sign-up.$.tsx"
     },
     "/_authed/dashboard/invoices": {
       "filePath": "_authed/dashboard.invoices.tsx",

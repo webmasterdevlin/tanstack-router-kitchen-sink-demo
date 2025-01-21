@@ -1,10 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SignIn } from '@clerk/tanstack-start'
+import { authStateFn } from '@/functions/auth'
 
 export const Route = createFileRoute('/_authed')({
-    beforeLoad: ({ context }) => {
-        if (!context.userId) {
-            throw new Error('Not authenticated')
+    beforeLoad: async () => {
+        const { userId } = await authStateFn()
+
+        return {
+            userId,
         }
     },
     errorComponent: ({ error }) => {

@@ -1,16 +1,21 @@
-import { Block, createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useBlocker } from '@tanstack/react-router';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/contact-us')({
   component: () => {
     const [formIsDirty, setFromIsDirty] = useState(false);
+
+    useBlocker({
+      shouldBlockFn: () => {
+        if (!formIsDirty) return false
+
+        const shouldLeave = confirm('Are you sure you want to leave?')
+        return !shouldLeave
+      },
+    });
+
     return (
-      <Block
-        blockerFn={() => {
-          return window.confirm('Are you sure you want to leave?');
-        }}
-        condition={formIsDirty}
-      >
+      <>
         <div>Hello /contact-us with url masking and blocker!</div>
         <button
           onClick={() => {
@@ -21,7 +26,7 @@ export const Route = createFileRoute('/contact-us')({
         >
           {formIsDirty ? 'Form is dirty' : 'Form is clean'}
         </button>
-      </Block>
+      </>
     );
   },
 });
