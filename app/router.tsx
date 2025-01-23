@@ -7,7 +7,7 @@ import { NotFound } from './components/NotFound';
 export function createRouter() {
   const router = createTanStackRouter({
     routeTree,
-    defaultPreload: 'render',
+    defaultPreload: 'viewport',
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
     defaultPendingComponent: () => {
