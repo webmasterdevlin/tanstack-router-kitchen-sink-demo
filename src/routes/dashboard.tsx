@@ -2,7 +2,7 @@ import { UnauthenticatedTemplate, AuthenticatedTemplate } from '@azure/msal-reac
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import DashboardNav from '../components/DashboardNav';
 import useAuth from '../hooks/useAuth';
-import Login from './-ignored-pages/login';
+import Login from './-ignored-pages/Login';
 
 export const Route = createFileRoute('/dashboard')({
   beforeLoad: ({ context }) => {
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/dashboard')({
       // });
     }
   },
-  // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+
   component: () => {
     const auth = useAuth();
     if (auth.status !== 'loggedIn') {
