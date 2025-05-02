@@ -1,6 +1,6 @@
 import { Link, useRouter } from '@tanstack/react-router';
 import { root } from '../utils/routePaths';
-import { useClerk, useUser } from '@clerk/tanstack-start';
+import { useClerk, useUser } from '@clerk/tanstack-react-start';
 
 function MainNav() {
   const router = useRouter();

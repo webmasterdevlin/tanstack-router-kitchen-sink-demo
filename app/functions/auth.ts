@@ -1,5 +1,5 @@
-import { createServerFn } from '@tanstack/start';
-import { getAuth } from '@clerk/tanstack-start/server';
+import { createServerFn } from '@tanstack/react-start';
+import { getAuth } from '@clerk/tanstack-react-start/server';
 import { getWebRequest } from 'vinxi/http';
 import { redirect } from '@tanstack/react-router';
 

@@ -3,7 +3,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { InvoiceFields } from '@/components/InvoiceFields'
 import { Spinner } from '@/components/Spinner'
 import { type Invoice } from '@/utils/mockTodos'
-import { useServerFn } from '@tanstack/start'
+import { useServerFn } from '@tanstack/react-start'
 import { postInvoiceFn } from '@/functions/invoice'
 
 export const Route = createFileRoute('/_authed/dashboard/invoices/')({

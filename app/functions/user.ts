@@ -1,6 +1,6 @@
 import { bananaMiddleware } from '@/middleware/banana';
 import { fetchUserById, fetchUsers } from '@/utils/mockTodos';
-import { createServerFn } from '@tanstack/start';
+import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
 const FetchUsersValidationSchema = z.object({

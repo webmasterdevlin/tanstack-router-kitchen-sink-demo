@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { InvoiceFields } from '@/components/InvoiceFields'
 import { fetchInvoiceByIdFn, patchInvoiceFn } from '@/functions/invoice'
-import { useServerFn } from '@tanstack/start'
+import { useServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { NotFound } from '@/components/NotFound'
 

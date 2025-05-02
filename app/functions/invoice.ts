@@ -1,6 +1,6 @@
 import { appleMiddleware } from '@/middleware/apple';
 import { fetchInvoiceById, fetchInvoices, patchInvoice, postInvoice } from '@/utils/mockTodos';
-import { createServerFn } from '@tanstack/start';
+import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
 export const fetchInvoicesFn = createServerFn({ method: 'GET' }).handler(async () => {

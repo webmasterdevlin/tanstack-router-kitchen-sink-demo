@@ -18,7 +18,6 @@
     "paths": {
       "@/*": ["./app/*"]
     },
-    "noEmit": true,
-    "strictNullChecks": true
+    "noEmit": true
   }
 }

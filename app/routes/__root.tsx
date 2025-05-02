@@ -1,12 +1,11 @@
 import globalStyle from '../globals.css?url';
 import { lazy, type ReactNode } from 'react';
-import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
-import { Meta, Scripts } from '@tanstack/start';
+import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
 import MainNav from '@/components/MainNav';
 import {
     ClerkProvider,
     useUser,
-} from '@clerk/tanstack-start'
+} from '@clerk/tanstack-react-start'
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -61,7 +60,7 @@ const TanStackRouterDevtools =
         : lazy(() =>
         // Lazy load in development
         {
-            return import('@tanstack/router-devtools').then(res => {
+            return import('@tanstack/react-router-devtools').then(res => {
                 return {
                     default: res.TanStackRouterDevtools,
                     // For Embedded Mode
@@ -112,11 +111,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html>
             <head>
-                <Meta />
+                <HeadContent />
             </head>
             <body>
                 {children}
-                <ScrollRestoration />
                 <Scripts />
             </body>
         </html>
